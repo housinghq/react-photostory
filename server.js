@@ -6,9 +6,13 @@ var config = require('./webpack.config');
 var app = express();
 var compiler = webpack(config);
 
-app.use(require('webpack-dev-middleware')(compiler, {
+var options = {
     noInfo: true
-}));
+};
+
+if(a = config.output.publicPath) options.publicPath = a;
+
+app.use(require('webpack-dev-middleware')(compiler, options));
 
 app.use(require('webpack-hot-middleware')(compiler));
 
