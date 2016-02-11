@@ -9,7 +9,7 @@
     "test:cov": "babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha",
     "prepublish": "npm run lint && npm run test",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "dev":"node server.js"
+    "start":"node server.js"
   },
   "repository": {
     "type": "git",
