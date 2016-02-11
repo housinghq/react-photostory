@@ -28,9 +28,8 @@ module.exports = {
     module : {
         loaders: [{
             test   : /\.jsx?$/,
-            loaders: ['babel-loader'],
-            exclude: /node_modules/,
-            include: path.join(__dirname, 'components')
+            loaders: ['babel'],
+            exclude: /node_modules/
         }, {
             test  : /\.scss$/,
             loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass')
@@ -39,14 +38,12 @@ module.exports = {
     entry  : [
         'eventsource-polyfill', // necessary for hot reloading with IE
         'webpack-hot-middleware/client',
-        './components/index.js'
+        './examples/main.js'
     ],
     devtool: 'cheap-module-eval-source-map',
     output : {
-        path         : path.join(__dirname, 'dist'),
-        filename     : 'bundle.js',
-        publicPath   : '/static/',
-        libraryTarget: 'umd'
+        path         : path.join(__dirname, 'examples'),
+        filename     : 'bundle.js'
     },
     plugins: plugins,
     resolve: {

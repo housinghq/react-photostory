@@ -3,15 +3,13 @@
   "description": "A boilerplate to create React components using react-transform-hmr, Babel 6, webpack and SASS",
   "main": "src/index.js",
   "scripts": {
-    "clean": "rimraf lib dist",
-    "build": "babel components --out-dir lib",
-    "build:umd": "webpack components/index.js dist/library-boilerplate.js && NODE_ENV=production webpack components/index.js dist/library-boilerplate.min.js",
     "lint": "eslint components test examples",
     "test": "NODE_ENV=test mocha",
     "test:watch": "NODE_ENV=test mocha --watch",
     "test:cov": "babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha",
-    "prepublish": "npm run lint && npm run test && npm run clean && npm run build && npm run build:umd",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "prepublish": "npm run lint && npm run test",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "dev":"node server.js"
   },
   "repository": {
     "type": "git",
