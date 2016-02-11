@@ -1,8 +1,7 @@
 {
-  "name": "library-boilerplate",
-  "version": "1.0.0",
-  "description": "library-boilerplate-description",
-  "main": "lib/index.js",
+  "name": "react-component-boilerplate",
+  "description": "A boilerplate to create React components using react-transform-hmr, Babel 6, webpack and SASS",
+  "main": "src/index.js",
   "scripts": {
     "clean": "rimraf lib dist",
     "build": "babel src --out-dir lib",
@@ -11,21 +10,22 @@
     "test": "NODE_ENV=test mocha",
     "test:watch": "NODE_ENV=test mocha --watch",
     "test:cov": "babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha",
-    "prepublish": "npm run lint && npm run test && npm run clean && npm run build && npm run build:umd"
+    "prepublish": "npm run lint && npm run test && npm run clean && npm run build && npm run build:umd",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/library-boilerplate-author/library-boilerplate.git"
+    "url": "https://github.com/ritz078/react-component-boilerplate.git"
   },
   "keywords": [
-    "library-boilerplate-keywords"
+    "react-component-keywords"
   ],
-  "author": "library-boilerplate-author",
+  "author": "Ritesh Kumar",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/library-boilerplate-author/library-boilerplate/issues"
+    "url": "https://github.com/ritz078/react-component-boilerplate/issues"
   },
-  "homepage": "https://github.com/library-boilerplate-author/library-boilerplate",
+  "homepage": "https://github.com/ritz078/react-component-boilerplate",
   "devDependencies": {
     "babel": "^6.5.1",
     "babel-core": "^6.5.1",
@@ -44,7 +44,8 @@
     "mocha": "^2.2.5",
     "rimraf": "^2.3.4",
     "webpack": "^1.9.6",
-    "webpack-dev-server": "^1.8.2"
+    "webpack-dev-server": "^1.8.2",
+    "semantic-release": "^4.3.5"
   },
   "dependencies": {
     "invariant": "^2.0.0"

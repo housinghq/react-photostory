@@ -34,7 +34,7 @@ module.exports = {
   entry: [
     'eventsource-polyfill', // necessary for hot reloading with IE
     'webpack-hot-middleware/client',
-    './src/index.jsx'
+    './src/index.js'
   ],
   devtool: 'cheap-module-eval-source-map',
   output: {
