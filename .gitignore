@@ -7,3 +7,4 @@ coverage
 .idea
 examples/bundle.js
 examples/styles.css
+npm-debug.log
