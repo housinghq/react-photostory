@@ -6,5 +6,5 @@ lib
 coverage
 .idea
 examples/bundle.js
-examples/styles.css
+examples/style.css
 npm-debug.log
