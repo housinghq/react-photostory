@@ -3,8 +3,8 @@
   "description": "A boilerplate to create React components using react-transform-hmr, Babel 6, webpack and SASS",
   "main": "src/index.js",
   "scripts": {
-    "lint": "eslint components test examples",
-    "prepublish": "npm run lint && npm run test",
+    "lint": "eslint components/** test/**",
+    "prepublish": "npm run lint",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "start": "node server.js"
   },
@@ -34,7 +34,7 @@
     "css-loader": "^0.23.1",
     "cz-conventional-changelog": "^1.1.5",
     "eslint": "^1.10.3",
-    "eslint-config-airbnb": "0.0.6",
+    "eslint-loader": "^1.2.1",
     "eslint-plugin-react": "^2.3.0",
     "eventsource-polyfill": "^0.9.6",
     "expect": "^1.6.0",
