@@ -38,7 +38,11 @@ if (process.env.NODE_ENV === 'production') {
 
     loaders = [{
         test   : /\.jsx?$/,
-        loaders: ['babel'],
+        loader: 'babel',
+        exclude: /node_modules/
+    },{
+        test: /\.jsx?$/,
+        loader: "eslint-loader",
         exclude: /node_modules/
     }, {
         test  : /\.scss$/,
