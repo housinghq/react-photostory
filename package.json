@@ -4,9 +4,6 @@
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint components test examples",
-    "test": "NODE_ENV=test mocha",
-    "test:watch": "NODE_ENV=test mocha --watch",
-    "test:cov": "babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha",
     "prepublish": "npm run lint && npm run test",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "start": "node server.js"
