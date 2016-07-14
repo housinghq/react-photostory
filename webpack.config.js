@@ -3,12 +3,22 @@
 var webpack           = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path              = require('path');
+var CarteBlanche     = require('carte-blanche');
+var ReactPlugin = require('carte-blanche-react-plugin');
+var SourcePlugin = require('carte-blanche-source-plugin');
 
 var plugins = [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    }),
+    new CarteBlanche({
+      componentRoot: 'components',
+      plugins: [
+        new SourcePlugin.default(),
+        new ReactPlugin()
+      ]
     })
 ];
 
