@@ -141,18 +141,22 @@ export default class Swipe extends Component {
   }
 
   gotoPrev() {
-    if (this.state.currentIndex > 0) {
+    const {currentIndex} = this.state;
+    const initialIndex = currentIndex;
+    if (currentIndex > 0) {
       this.setState({
-        currentIndex: this.state.currentIndex - 1
-      })
+        currentIndex: currentIndex - 1
+      }, () => (this.onChange(initialIndex)))
     }
   }
 
   gotoNext() {
-    if (this.state.currentIndex + 1 < this.props.images.length) {
+    const {currentIndex} = this.state;
+    const initialIndex = currentIndex;
+    if (currentIndex + 1 < this.props.images.length) {
       this.setState({
-        currentIndex: this.state.currentIndex + 1
-      })
+        currentIndex: currentIndex + 1
+      }, () => (this.onChange(initialIndex)))
     }
   }
 
