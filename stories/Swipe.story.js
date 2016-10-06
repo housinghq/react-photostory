@@ -11,5 +11,6 @@ storiesOf('App', module)
             'https://is1-3.housingcdn.com/afe3f526/13b186eece020d2d4ad85cea21cdb991/v4/medium.jpg',
             'https://is1-3.housingcdn.com/afe3f526/7114b67ecce8e089fa750d76372d4636/v3/medium.jpg'
         ]}
+        onSwipe={action('swiped')}
     />
   ));

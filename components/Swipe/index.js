@@ -2,54 +2,74 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 import './app.css';
 
+function autoBind(methods, context) {
+  methods.forEach(method => {
+    // eslint-disable-next-line no-param-reassign
+    context[method] = context[method].bind(context);
+  });
+}
+
 export default class Swipe extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentIndex: 0,
+      currentIndex: props.initialIndex,
       width: null,
       scrollLeft: 0,
       drag: 0
     };
 
-    this.getImages = this.getImages.bind(this);
-
-    this.setWidth = this.setWidth.bind(this);
-    this.handleTouchStart = this.handleTouchStart.bind(this);
-    this.handleTouchEnd = this.handleTouchEnd.bind(this);
-    this.handleTouchMove = this.handleTouchMove.bind(this)
+    autoBind([
+      'getImages',
+      'setWidth',
+      'handleTouchStart',
+      'handleTouchEnd',
+      'handleTouchMove',
+      'gotoNext',
+      'gotoPrev',
+      'onChange',
+      'lazyLoadImage',
+      'initLazyLoad'
+    ], this);
   }
 
   componentDidMount() {
     this.setWidth();
+    this.initLazyLoad();
 
-    document.addEventListener('resize', this.setWidth);
+    window.addEventListener('resize', this.setWidth);
   }
 
   setWidth() {
-    if (this.refs.swipe) {
+    if (this.swipeRef) {
       this.setState({
-        width: this.refs.swipe.clientWidth
+        width: this.swipeRef.clientWidth
       })
     }
   }
 
-  getStyle(img) {
-    return {
-      backgroundImage: `url(${img})`,
-      width: `${this.state.width}px`
+  getStyle(img, asObject = false) {
+    if (asObject) {
+      return {
+        width: `${this.state.width}px`,
+        backgroundImage: `url(${img})`
+      }
     }
+    return `background-image: url(${img});width: ${this.state.width}px;`
   }
 
   getImages() {
-    return this.props.images.map((img, i) => {
+    const {images, defaultImages, initialIndex} = this.props;
+    return images.map((img, i) => {
+      let imgSrc = typeof defaultImages === 'string' ? defaultImages : defaultImages[i];
+      if (i === initialIndex) imgSrc = img;
       return (
         <div
           key={i}
           data-index={i}
           data-src={img}
-          ref={`rs-${i}`}
-          style={this.getStyle(img)}
+          ref={(img) => (this[`imageRef${i}`] = img)}
+          style={this.getStyle(imgSrc, true)}
           className="rs-img"
         ></div>
       )
@@ -70,18 +90,17 @@ export default class Swipe extends Component {
       this.setState(() => {
         if (drag < 0 && currentIndex > 0) {
           return {
+            // goto previous slide
             currentIndex: currentIndex - 1
           }
         } else if (drag > 0 && ((currentIndex + 1) < this.props.images.length)) {
           return {
+            // goto next slide
             currentIndex: currentIndex + 1
           }
         }
       }, () => {
-        this.props.onSwipe({
-          currentIndex: this.state.currentIndex,
-          initialIndex
-        })
+        this.onChange(initialIndex)
       })
     }
 
@@ -90,6 +109,26 @@ export default class Swipe extends Component {
     });
 
     document.removeEventListener('touchmove', this.handleTouchMove);
+  }
+
+  lazyLoadImage(elementRef) {
+    if (!elementRef) return;
+    const imgSrc = elementRef.getAttribute('data-src');
+    const img = new Image();
+    img.src = imgSrc;
+    img.onload = () => {
+      elementRef.setAttribute('style', this.getStyle(imgSrc));
+    }
+  }
+
+  initLazyLoad() {
+    const {currentIndex} = this.state;
+    const {overScan, images} = this.props;
+    this.lazyLoadImage(this[`imageRef${currentIndex}`]);
+    if (overScan === 1) {
+      if (currentIndex > 0) this.lazyLoadImage(this[`imageRef${currentIndex - 1}`]);
+      if (currentIndex + 1 < images.length) this.lazyLoadImage(this[`imageRef${currentIndex + 1}`]);
+    }
   }
 
   handleTouchMove(e) {
@@ -101,27 +140,63 @@ export default class Swipe extends Component {
     })
   }
 
+  gotoPrev() {
+    if (this.state.currentIndex > 0) {
+      this.setState({
+        currentIndex: this.state.currentIndex - 1
+      })
+    }
+  }
+
+  gotoNext() {
+    if (this.state.currentIndex + 1 < this.props.images.length) {
+      this.setState({
+        currentIndex: this.state.currentIndex + 1
+      })
+    }
+  }
+
+  onChange(initialIndex) {
+    this.props.onSwipe({
+      currentIndex: this.state.currentIndex,
+      initialIndex
+    });
+    this.initLazyLoad();
+  }
+
   render() {
-    const {className, images} = this.props;
+    const {className, images, prev, next} = this.props;
 
     const {width, drag, currentIndex} = this.state;
 
     const mainClass = classNames('react-swipe', className);
+
+    const nextClass = classNames('rs-next', {
+      disabled: currentIndex + 1 >= images.length
+    });
+
+    const prevClass = classNames('rs-prev', {
+      disabled: currentIndex === 0
+    });
 
     const style = {
       width: `${images.length * width}px`,
       transform: `translateX(${-(currentIndex * width) - drag}px)`
     };
     return (
-      <div className={mainClass} ref="swipe">
-        <div
-          className="rs-imgs-wrapper"
-          style={style}
-          onTouchStart={this.handleTouchStart}
-          onTouchEnd={this.handleTouchEnd}
-        >
-          {this.getImages()}
+      <div className={mainClass}>
+        <div className='rs-swipe-gallery' ref={(swipe) => (this.swipeRef = swipe)}>
+          <div
+            className="rs-imgs-wrapper"
+            style={style}
+            onTouchStart={this.handleTouchStart}
+            onTouchEnd={this.handleTouchEnd}
+          >
+            {this.getImages()}
+          </div>
         </div>
+        <div className={prevClass} onClick={this.gotoPrev}>{prev}</div>
+        <div className={nextClass} onClick={this.gotoNext}>{next}</div>
       </div>
     )
   }
@@ -134,14 +209,29 @@ Swipe.propTypes = {
   // array of image URLs
   images: PropTypes.array.isRequired,
 
+  // array or a single image to be used as default
+  // until the main image has been loaded.
+  defaultImages: PropTypes.oneOfType([
+    PropTypes.string, PropTypes.array
+  ]),
+
+  // number of images to be loaded in advance
+  overScan: PropTypes.oneOf([0, 1]),
+
   // function called on slide change
+  // argument { initialIndex, currentIndex }
   onSwipe: PropTypes.func,
 
-  // Number of images to lazy-load in advance +- currentIndex
-  overScan: PropTypes.number
+  // index of initially visible image
+  initialIndex: PropTypes.number
 };
 
 Swipe.defaultProps = {
-  overScan: 0,
-  onSwipe(){}
+  overScan: 1,
+  initialIndex: 0,
+  onSwipe(){
+  },
+  defaultImages: '',
+  prev: <button>PREV</button>,
+  next: <button>NEXT</button>
 };
