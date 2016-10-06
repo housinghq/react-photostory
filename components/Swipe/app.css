@@ -1,0 +1,19 @@
+.react-swipe{
+  height: 300px;
+  background-color: red;
+  overflow: hidden;
+}
+
+.rs-imgs-wrapper{
+  height: 100%;
+  overflow: hidden;
+  will-change: transform;
+  transition: transform .2s ease-out;
+}
+
+.rs-img{
+  height: 100%;
+  background: no-repeat center;
+  background-size: cover;
+  float: left;
+}

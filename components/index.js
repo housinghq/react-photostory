@@ -1,3 +1,3 @@
-import App from './App/App';
+import Swipe from './Swipe/index';
 
-export {App};
+export {Swipe};

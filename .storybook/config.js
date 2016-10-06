@@ -1,7 +1,7 @@
 import { configure } from '@kadira/storybook';
 
 function loadStories () {
-  require('../stories/App.story');
+  require('../stories/Swipe.story.js');
 }
 
 configure(loadStories, module);
