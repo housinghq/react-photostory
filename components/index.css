@@ -1,0 +1,26 @@
+.rs-swipe-gallery{
+  height: 300px;
+  background-color: #f6f6f6;
+  overflow: hidden;
+}
+
+.rs-imgs-wrapper{
+  height: 100%;
+  overflow: hidden;
+  will-change: transform;
+  transition: transform .2s ease-out;
+}
+
+.rs-img{
+  height: 100%;
+  background: no-repeat center;
+  background-size: cover;
+  float: left;
+  opacity: 0.6;
+  will-change: opacity;
+  transition: opacity .3s;
+}
+
+.rs-loaded{
+  opacity: 1;
+}
