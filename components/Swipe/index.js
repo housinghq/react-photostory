@@ -37,7 +37,9 @@ export default class Swipe extends Component {
     this.setWidth();
     this.initLazyLoad();
 
-    window.addEventListener('resize', this.setWidth);
+    if(this.props.responsive){
+      window.addEventListener('resize', this.setWidth, false);
+    }
   }
 
   setWidth() {
@@ -59,10 +61,9 @@ export default class Swipe extends Component {
   }
 
   getImages() {
-    const {images, defaultImages, initialIndex} = this.props;
+    const {images, defaultImages} = this.props;
     return images.map((img, i) => {
-      let imgSrc = typeof defaultImages === 'string' ? defaultImages : defaultImages[i];
-      if (i === initialIndex) imgSrc = img;
+      const imgSrc = typeof defaultImages === 'string' ? defaultImages : defaultImages[i];
       return (
         <div
           key={i}
@@ -78,15 +79,16 @@ export default class Swipe extends Component {
 
   handleTouchStart(e) {
     this.clientX = e.touches[0].clientX;
-    document.addEventListener('touchmove', this.handleTouchMove);
+    document.addEventListener('touchmove', this.handleTouchMove, false);
   }
 
   handleTouchEnd() {
     const {drag, currentIndex, width} = this.state;
+    const {threshold} = this.props;
 
     const initialIndex = currentIndex;
 
-    if (Math.abs(drag) > 0.5 * width) {
+    if (Math.abs(drag) > threshold * width) {
       this.setState(() => {
         if (drag < 0 && currentIndex > 0) {
           return {
@@ -108,16 +110,17 @@ export default class Swipe extends Component {
       drag: 0
     });
 
-    document.removeEventListener('touchmove', this.handleTouchMove);
+    document.removeEventListener('touchmove', this.handleTouchMove, false);
   }
 
   lazyLoadImage(elementRef) {
-    if (!elementRef) return;
+    if (!elementRef || (elementRef && elementRef.classList.contains('rs-loaded'))) return;
     const imgSrc = elementRef.getAttribute('data-src');
     const img = new Image();
     img.src = imgSrc;
     img.onload = () => {
       elementRef.setAttribute('style', this.getStyle(imgSrc));
+      elementRef.classList.add('rs-loaded');
     }
   }
 
@@ -132,7 +135,6 @@ export default class Swipe extends Component {
   }
 
   handleTouchMove(e) {
-    console.log(e);
     const dx = this.clientX - e.touches[0].clientX;
 
     this.setState({
@@ -158,6 +160,12 @@ export default class Swipe extends Component {
         currentIndex: currentIndex + 1
       }, () => (this.onChange(initialIndex)))
     }
+  }
+
+  gotoSlide(i) {
+    this.setState({
+      currentIndex: i
+    })
   }
 
   onChange(initialIndex) {
@@ -227,7 +235,13 @@ Swipe.propTypes = {
   onSwipe: PropTypes.func,
 
   // index of initially visible image
-  initialIndex: PropTypes.number
+  initialIndex: PropTypes.number,
+
+  // drag ratio of full width for successful swipe
+  threshold: PropTypes.number,
+
+  // whether responsive to window resize
+  responsive: PropTypes.bool
 };
 
 Swipe.defaultProps = {
@@ -237,5 +251,7 @@ Swipe.defaultProps = {
   },
   defaultImages: '',
   prev: <button>PREV</button>,
-  next: <button>NEXT</button>
+  next: <button>NEXT</button>,
+  threshold: 0.5,
+  responsive: true
 };
