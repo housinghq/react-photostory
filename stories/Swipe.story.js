@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import { decorateAction } from '@kadira/storybook-addon-actions';
 
-import { Swipe } from '../components';
+import Swipe from '../components';
 
 const firstArg = decorateAction([
   args => args.slice(0, 1)

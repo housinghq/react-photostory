@@ -1,14 +1,16 @@
 {
   "name": "react-swipe",
   "description": "A gallery component written in React",
-  "main": "components/index.js",
+  "main": "dist/index.js",
+  "jsnext:main": "components/index.js",
   "scripts": {
     "lint": "eslint components/** test/**",
     "prepublish": "npm run lint",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "storybook": "start-storybook -p 9002",
     "test": "mocha --require test/config/setup 'tests/**/*.test.js'",
-    "test:cover": "istanbul cover -x *.test.js _mocha -- -R spec --require tests/config/setup 'tests/**/*.test.js'"
+    "test:cover": "istanbul cover -x *.test.js _mocha -- -R spec --require tests/config/setup 'tests/**/*.test.js'",
+    "build": "babel components --out-dir dist"
   },
   "repository": {
     "type": "git",
@@ -28,13 +30,13 @@
     "@kadira/storybook-addon-actions": "^1.1.1",
     "autoprefixer": "^6.4.1",
     "babel": "^6.5.2",
+    "babel-cli": "^6.16.0",
     "babel-core": "^6.14.0",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.5",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
-    "babel-preset-stage-0": "^6.5.0",
     "chai": "^3.5.0",
     "commitizen": "^2.8.6",
     "css-loader": "^0.25.0",
