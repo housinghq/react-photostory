@@ -1,23 +1,23 @@
-import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames';
-import './index.css';
+import React, { Component, PropTypes } from 'react'
+import classNames from 'classnames'
+import './index.css'
 
-function autoBind(methods, context) {
+function autoBind (methods, context) {
   methods.forEach(method => {
     // eslint-disable-next-line no-param-reassign
-    context[method] = context[method].bind(context);
-  });
+    context[method] = context[method].bind(context)
+  })
 }
 
 export default class Swipe extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
       currentIndex: props.initialIndex,
       width: null,
       scrollLeft: 0,
       drag: 0
-    };
+    }
 
     autoBind([
       'getImages',
@@ -30,19 +30,19 @@ export default class Swipe extends Component {
       'onChange',
       'lazyLoadImage',
       'initLazyLoad'
-    ], this);
+    ], this)
   }
 
-  componentDidMount() {
-    this.setWidth();
-    this.initLazyLoad();
+  componentDidMount () {
+    this.setWidth()
+    this.initLazyLoad()
 
-    if(this.props.responsive){
-      window.addEventListener('resize', this.setWidth, false);
+    if (this.props.responsive) {
+      window.addEventListener('resize', this.setWidth, false)
     }
   }
 
-  setWidth() {
+  setWidth () {
     if (this.swipeRef) {
       this.setState({
         width: this.swipeRef.clientWidth
@@ -50,7 +50,7 @@ export default class Swipe extends Component {
     }
   }
 
-  getStyle(img, asObject = false) {
+  getStyle (img, asObject = false) {
     if (asObject) {
       return {
         width: `${this.state.width}px`,
@@ -60,10 +60,10 @@ export default class Swipe extends Component {
     return `background-image: url(${img});width: ${this.state.width}px;`
   }
 
-  getImages() {
-    const {images, defaultImages} = this.props;
+  getImages () {
+    const {images, defaultImages} = this.props
     return images.map((img, i) => {
-      const imgSrc = typeof defaultImages === 'string' ? defaultImages : defaultImages[i];
+      const imgSrc = typeof defaultImages === 'string' ? defaultImages : defaultImages[i]
       return (
         <div
           key={i}
@@ -71,22 +71,22 @@ export default class Swipe extends Component {
           data-src={img}
           ref={(img) => (this[`imageRef${i}`] = img)}
           style={this.getStyle(imgSrc, true)}
-          className="rs-img"
-        ></div>
+          className='rs-img'
+         />
       )
     })
   }
 
-  handleTouchStart(e) {
-    this.clientX = e.touches[0].clientX;
-    document.addEventListener('touchmove', this.handleTouchMove, false);
+  handleTouchStart (e) {
+    this.clientX = e.touches[0].clientX
+    document.addEventListener('touchmove', this.handleTouchMove, false)
   }
 
-  handleTouchEnd() {
-    const {drag, currentIndex, width} = this.state;
-    const {threshold} = this.props;
+  handleTouchEnd () {
+    const {drag, currentIndex, width} = this.state
+    const {threshold} = this.props
 
-    const initialIndex = currentIndex;
+    const initialIndex = currentIndex
 
     if (Math.abs(drag) > threshold * width) {
       this.setState(() => {
@@ -108,43 +108,43 @@ export default class Swipe extends Component {
 
     this.setState({
       drag: 0
-    });
+    })
 
-    document.removeEventListener('touchmove', this.handleTouchMove, false);
+    document.removeEventListener('touchmove', this.handleTouchMove, false)
   }
 
-  lazyLoadImage(elementRef) {
-    if (!elementRef || (elementRef && elementRef.classList.contains('rs-loaded'))) return;
-    const imgSrc = elementRef.getAttribute('data-src');
-    const img = new Image();
-    img.src = imgSrc;
+  lazyLoadImage (elementRef) {
+    if (!elementRef || (elementRef && elementRef.classList.contains('rs-loaded'))) return
+    const imgSrc = elementRef.getAttribute('data-src')
+    const img = new Image()
+    img.src = imgSrc
     img.onload = () => {
-      elementRef.setAttribute('style', this.getStyle(imgSrc));
-      elementRef.classList.add('rs-loaded');
+      elementRef.setAttribute('style', this.getStyle(imgSrc))
+      elementRef.classList.add('rs-loaded')
     }
   }
 
-  initLazyLoad() {
-    const {currentIndex} = this.state;
-    const {overScan, images} = this.props;
-    this.lazyLoadImage(this[`imageRef${currentIndex}`]);
+  initLazyLoad () {
+    const {currentIndex} = this.state
+    const {overScan, images} = this.props
+    this.lazyLoadImage(this[`imageRef${currentIndex}`])
     if (overScan === 1) {
-      if (currentIndex > 0) this.lazyLoadImage(this[`imageRef${currentIndex - 1}`]);
-      if (currentIndex + 1 < images.length) this.lazyLoadImage(this[`imageRef${currentIndex + 1}`]);
+      if (currentIndex > 0) this.lazyLoadImage(this[`imageRef${currentIndex - 1}`])
+      if (currentIndex + 1 < images.length) this.lazyLoadImage(this[`imageRef${currentIndex + 1}`])
     }
   }
 
-  handleTouchMove(e) {
-    const dx = this.clientX - e.touches[0].clientX;
+  handleTouchMove (e) {
+    const dx = this.clientX - e.touches[0].clientX
 
     this.setState({
       drag: dx
     })
   }
 
-  gotoPrev() {
-    const {currentIndex} = this.state;
-    const initialIndex = currentIndex;
+  gotoPrev () {
+    const {currentIndex} = this.state
+    const initialIndex = currentIndex
     if (currentIndex > 0) {
       this.setState({
         currentIndex: currentIndex - 1
@@ -152,9 +152,9 @@ export default class Swipe extends Component {
     }
   }
 
-  gotoNext() {
-    const {currentIndex} = this.state;
-    const initialIndex = currentIndex;
+  gotoNext () {
+    const {currentIndex} = this.state
+    const initialIndex = currentIndex
     if (currentIndex + 1 < this.props.images.length) {
       this.setState({
         currentIndex: currentIndex + 1
@@ -162,44 +162,44 @@ export default class Swipe extends Component {
     }
   }
 
-  gotoSlide(i) {
+  gotoSlide (i) {
     this.setState({
       currentIndex: i
     })
   }
 
-  onChange(initialIndex) {
+  onChange (initialIndex) {
     this.props.onSwipe({
       currentIndex: this.state.currentIndex,
       initialIndex
-    });
-    this.initLazyLoad();
+    })
+    this.initLazyLoad()
   }
 
-  render() {
-    const {className, images, prev, next} = this.props;
+  render () {
+    const {className, images, prev, next} = this.props
 
-    const {width, drag, currentIndex} = this.state;
+    const {width, drag, currentIndex} = this.state
 
-    const mainClass = classNames('react-swipe', className);
+    const mainClass = classNames('react-swipe', className)
 
     const nextClass = classNames('rs-next', {
       disabled: currentIndex + 1 >= images.length
-    });
+    })
 
     const prevClass = classNames('rs-prev', {
       disabled: currentIndex === 0
-    });
+    })
 
     const style = {
       width: `${images.length * width}px`,
       transform: `translateX(${-(currentIndex * width) - drag}px)`
-    };
+    }
     return (
       <div className={mainClass}>
         <div className='rs-swipe-gallery' ref={(swipe) => (this.swipeRef = swipe)}>
           <div
-            className="rs-imgs-wrapper"
+            className='rs-imgs-wrapper'
             style={style}
             onTouchStart={this.handleTouchStart}
             onTouchEnd={this.handleTouchEnd}
@@ -241,17 +241,23 @@ Swipe.propTypes = {
   threshold: PropTypes.number,
 
   // whether responsive to window resize
-  responsive: PropTypes.bool
-};
+  responsive: PropTypes.bool,
+
+  // prev React element
+  prev: PropTypes.element,
+
+  // next React element
+  next: PropTypes.element
+}
 
 Swipe.defaultProps = {
   overScan: 1,
   initialIndex: 0,
-  onSwipe(){
+  onSwipe () {
   },
   defaultImages: '',
   prev: <button>PREV</button>,
   next: <button>NEXT</button>,
   threshold: 0.5,
   responsive: true
-};
+}
