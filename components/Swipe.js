@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
 
-function autoBind (methods, context) {
+function autoBind(methods, context) {
   methods.forEach(method => {
     // eslint-disable-next-line no-param-reassign
     context[method] = context[method].bind(context)
@@ -9,7 +9,7 @@ function autoBind (methods, context) {
 }
 
 export default class Swipe extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       currentIndex: props.initialIndex,
@@ -25,22 +25,28 @@ export default class Swipe extends Component {
       'handleTouchMove',
       'gotoNext',
       'gotoPrev',
+      'gotoSlide',
       'onChange',
       'initLazyLoad',
-      'hasSingleImage'
+      'hasSingleImage',
+      'autoPlay'
     ], this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.setWidth()
     this.initLazyLoad()
 
-    if (this.props.responsive) {
+    const {responsive, autoPlay, children} = this.props;
+
+    if (autoPlay && children.length > 1) this.autoPlay()
+
+    if (responsive) {
       window.addEventListener('resize', this.setWidth, false)
     }
   }
 
-  setWidth () {
+  setWidth() {
     if (this.swipeRef) {
       this.setState({
         width: this.swipeRef.clientWidth
@@ -48,13 +54,13 @@ export default class Swipe extends Component {
     }
   }
 
-  handleTouchStart (e) {
+  handleTouchStart(e) {
     if (this.hasSingleImage()) return
     this.clientX = e.touches[0].clientX
     document.addEventListener('touchmove', this.handleTouchMove, false)
   }
 
-  handleTouchEnd () {
+  handleTouchEnd() {
     if (this.hasSingleImage()) return
     const {drag, currentIndex, width} = this.state
     const {threshold} = this.props
@@ -86,7 +92,7 @@ export default class Swipe extends Component {
     document.removeEventListener('touchmove', this.handleTouchMove, false)
   }
 
-  initLazyLoad () {
+  initLazyLoad() {
     const {currentIndex} = this.state
     const {overScan, children} = this.props
     this[`imageRef${currentIndex}`].load()
@@ -96,7 +102,7 @@ export default class Swipe extends Component {
     }
   }
 
-  handleTouchMove (e) {
+  handleTouchMove(e) {
     const dx = this.clientX - e.touches[0].clientX
 
     this.setState({
@@ -104,33 +110,39 @@ export default class Swipe extends Component {
     })
   }
 
-  gotoPrev () {
+  gotoPrev() {
     const {currentIndex} = this.state
-    const initialIndex = currentIndex
     if (currentIndex > 0) {
-      this.setState({
-        currentIndex: currentIndex - 1
-      }, () => (this.onChange(initialIndex)))
+      this.gotoSlide(currentIndex - 1, currentIndex)
     }
   }
 
-  gotoNext () {
+  gotoNext() {
     const {currentIndex} = this.state
-    const initialIndex = currentIndex
     if (currentIndex + 1 < this.props.children.length) {
-      this.setState({
-        currentIndex: currentIndex + 1
-      }, () => (this.onChange(initialIndex)))
+      this.gotoSlide(currentIndex + 1, currentIndex)
     }
   }
 
-  gotoSlide (i) {
+  gotoSlide(i, initial) {
     this.setState({
       currentIndex: i
-    })
+    }, () => (this.onChange(initial)))
   }
 
-  onChange (initialIndex) {
+  autoPlay() {
+    const {children, autoPlayInterval} = this.props
+    setInterval(() => {
+      const {currentIndex} = this.state
+      if (currentIndex + 1 < children.length) {
+        this.gotoNext()
+      } else {
+        this.gotoSlide(0, currentIndex)
+      }
+    }, autoPlayInterval)
+  }
+
+  onChange(initialIndex) {
     this.props.onSwipe({
       currentIndex: this.state.currentIndex,
       initialIndex
@@ -138,11 +150,11 @@ export default class Swipe extends Component {
     this.initLazyLoad()
   }
 
-  hasSingleImage () {
+  hasSingleImage() {
     return !(this.props.children.length > 1)
   }
 
-  render () {
+  render() {
     const {className, children, prev, next} = this.props
 
     const {width, drag, currentIndex} = this.state
@@ -190,6 +202,12 @@ export default class Swipe extends Component {
 }
 
 Swipe.propTypes = {
+  // autoplay true or false
+  autoPlay: PropTypes.bool,
+
+  // interval for autoplay
+  autoPlayInterval: PropTypes.number,
+
   // custom class name for the component
   className: PropTypes.string,
 
@@ -219,6 +237,8 @@ Swipe.propTypes = {
 }
 
 Swipe.defaultProps = {
+  autoPlay: false,
+  autoPlayInterval: 4000,
   overScan: 1,
   initialIndex: 0,
   onSwipe () {
