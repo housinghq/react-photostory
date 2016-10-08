@@ -8,7 +8,7 @@
   height: 100%;
   overflow: hidden;
   will-change: transform;
-  transition: transform .2s ease-out;
+  transition: transform .3s ease-out;
 }
 
 .rs-img{
