@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames';
+import React, { Component, PropTypes } from 'react'
+import classNames from 'classnames'
 
-export default class Slide extends Component{
-  constructor(props) {
+export default class Slide extends Component {
+  constructor (props) {
     super(props)
     this.state = {
       image: props.defaultImage || props.image,
@@ -12,17 +12,17 @@ export default class Slide extends Component{
     this.load = this.load.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     this.setState({
       width: nextProps.width
     })
   }
 
-  load() {
-    const {image} = this.props;
+  load () {
+    const {image} = this.props
     if (this.state.image !== image) {
-      const img = new Image();
-      img.src = image;
+      const img = new Image()
+      img.src = image
       img.onload = () => {
         this.setState({
           image
@@ -31,8 +31,8 @@ export default class Slide extends Component{
     }
   }
 
-  render() {
-    const {width, image, index, children} = this.props;
+  render () {
+    const {width, image, index, children} = this.props
 
     const style = {
       width,
@@ -64,5 +64,7 @@ Slide.propTypes = {
   image: PropTypes.string.isRequired,
 
   // url of pre loaded image
-  defaultImage: PropTypes.string
+  defaultImage: PropTypes.string,
+
+  children: PropTypes.array
 }
