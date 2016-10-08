@@ -29,7 +29,8 @@ export default class Swipe extends Component {
       'onChange',
       'initLazyLoad',
       'hasSingleImage',
-      'autoPlay'
+      'autoPlay',
+      'pause'
     ], this)
   }
 
@@ -37,12 +38,16 @@ export default class Swipe extends Component {
     this.setWidth()
     this.initLazyLoad()
 
-    const {responsive, autoPlay, children} = this.props
+    if (this.props.autoPlay) this.autoPlay(this.props)
 
-    if (autoPlay && children.length > 1) this.autoPlay()
-
-    if (responsive) {
+    if (this.props.responsive) {
       window.addEventListener('resize', this.setWidth, false)
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (this.props.autoPlay !== nextProps.autoPlay) {
+      nextProps.autoPlay ? this.autoPlay(nextProps) : this.pause()
     }
   }
 
@@ -130,9 +135,13 @@ export default class Swipe extends Component {
     }, () => (this.onChange(initial)))
   }
 
-  autoPlay () {
-    const {children, autoPlayInterval} = this.props
-    setInterval(() => {
+  autoPlay (props) {
+    const {children, autoPlayInterval} = props
+    this.pause()
+
+    if (this.hasSingleImage()) return
+
+    this.autoPlayId = setInterval(() => {
       const {currentIndex} = this.state
       if (currentIndex + 1 < children.length) {
         this.gotoNext()
@@ -140,6 +149,10 @@ export default class Swipe extends Component {
         this.gotoSlide(0, currentIndex)
       }
     }, autoPlayInterval)
+  }
+
+  pause () {
+    clearInterval(this.autoPlayId)
   }
 
   onChange (initialIndex) {
