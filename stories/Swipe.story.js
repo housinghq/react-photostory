@@ -21,6 +21,7 @@ stories
       overScan={number('overScan', 0)}
       autoPlay={boolean('autoPlay', false)}
       autoPlayInterval={number('Autoplay Interval', 4000)}
+      onSwipe={action('slideChanged')}
     >
       <Slide defaultImage={defaultImage} image='https://is1-2.housingcdn.com/afe3f526/1264f1fbf64cb1d23dfaa3beb33ff0ef/v2/medium.jpg'/>
       <Slide defaultImage={defaultImage} image='https://is1-3.housingcdn.com/afe3f526/13b186eece020d2d4ad85cea21cdb991/v4/medium.jpg'/>

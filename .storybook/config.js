@@ -10,7 +10,7 @@ setOptions({
   showLeftPanel: false,
   showDownPanel: true,
   showSearchBox: false,
-  downPanelInRight: true,
+  downPanelInRight: false,
 });
 
 function loadStories () {
