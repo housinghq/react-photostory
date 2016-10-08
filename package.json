@@ -18,6 +18,7 @@
     "test": "mocha --require tests/config/setup 'tests/**/*.test.js'",
     "test:watch": "mocha --require tests/config/setup 'tests/**/*.test.js' --watch",
     "test:cover": "istanbul cover -x *.test.js _mocha -- -R spec --require tests/config/setup 'tests/**/*.test.js'",
+    "test:report": "cat ./coverage/lcov.info | codecov && rm -rf ./coverage",
     "build": "babel components --out-dir dist"
   },
   "repository": {
@@ -43,6 +44,7 @@
     "babel-preset-react": "^6.11.1",
     "chai": "^3.5.0",
     "chai-enzyme": "^0.5.2",
+    "codecov.io": "^0.1.6",
     "commitizen": "^2.8.6",
     "cz-conventional-changelog": "^1.2.0",
     "enzyme": "^2.4.1",
