@@ -26,7 +26,8 @@
     "url": "https://github.com/housinghq/react-swipe"
   },
   "keywords": [
-    "react-component-keywords"
+    "react-swipe",
+    "react-photostory"
   ],
   "author": "Ritesh Kumar",
   "license": "MIT",
