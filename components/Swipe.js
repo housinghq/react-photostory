@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
 
-function autoBind(methods, context) {
+function autoBind (methods, context) {
   methods.forEach(method => {
     // eslint-disable-next-line no-param-reassign
     context[method] = context[method].bind(context)
@@ -9,7 +9,7 @@ function autoBind(methods, context) {
 }
 
 export default class Swipe extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       currentIndex: props.initialIndex,
@@ -33,11 +33,11 @@ export default class Swipe extends Component {
     ], this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.setWidth()
     this.initLazyLoad()
 
-    const {responsive, autoPlay, children} = this.props;
+    const {responsive, autoPlay, children} = this.props
 
     if (autoPlay && children.length > 1) this.autoPlay()
 
@@ -46,7 +46,7 @@ export default class Swipe extends Component {
     }
   }
 
-  setWidth() {
+  setWidth () {
     if (this.swipeRef) {
       this.setState({
         width: this.swipeRef.clientWidth
@@ -54,13 +54,13 @@ export default class Swipe extends Component {
     }
   }
 
-  handleTouchStart(e) {
+  handleTouchStart (e) {
     if (this.hasSingleImage()) return
     this.clientX = e.touches[0].clientX
     document.addEventListener('touchmove', this.handleTouchMove, false)
   }
 
-  handleTouchEnd() {
+  handleTouchEnd () {
     if (this.hasSingleImage()) return
     const {drag, currentIndex, width} = this.state
     const {threshold} = this.props
@@ -92,7 +92,7 @@ export default class Swipe extends Component {
     document.removeEventListener('touchmove', this.handleTouchMove, false)
   }
 
-  initLazyLoad() {
+  initLazyLoad () {
     const {currentIndex} = this.state
     const {overScan, children} = this.props
     this[`imageRef${currentIndex}`].load()
@@ -102,7 +102,7 @@ export default class Swipe extends Component {
     }
   }
 
-  handleTouchMove(e) {
+  handleTouchMove (e) {
     const dx = this.clientX - e.touches[0].clientX
 
     this.setState({
@@ -110,27 +110,27 @@ export default class Swipe extends Component {
     })
   }
 
-  gotoPrev() {
+  gotoPrev () {
     const {currentIndex} = this.state
     if (currentIndex > 0) {
       this.gotoSlide(currentIndex - 1, currentIndex)
     }
   }
 
-  gotoNext() {
+  gotoNext () {
     const {currentIndex} = this.state
     if (currentIndex + 1 < this.props.children.length) {
       this.gotoSlide(currentIndex + 1, currentIndex)
     }
   }
 
-  gotoSlide(i, initial) {
+  gotoSlide (i, initial) {
     this.setState({
       currentIndex: i
     }, () => (this.onChange(initial)))
   }
 
-  autoPlay() {
+  autoPlay () {
     const {children, autoPlayInterval} = this.props
     setInterval(() => {
       const {currentIndex} = this.state
@@ -142,7 +142,7 @@ export default class Swipe extends Component {
     }, autoPlayInterval)
   }
 
-  onChange(initialIndex) {
+  onChange (initialIndex) {
     this.props.onSwipe({
       currentIndex: this.state.currentIndex,
       initialIndex
@@ -150,11 +150,11 @@ export default class Swipe extends Component {
     this.initLazyLoad()
   }
 
-  hasSingleImage() {
+  hasSingleImage () {
     return !(this.props.children.length > 1)
   }
 
-  render() {
+  render () {
     const {className, children, prev, next} = this.props
 
     const {width, drag, currentIndex} = this.state
