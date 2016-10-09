@@ -2,6 +2,7 @@ import React from 'react';
 const { describe, it } = global;
 import { shallow, mount } from 'enzyme';
 import { expect } from 'chai'
+import sinon from 'sinon'
 import {Swipe, Slide} from '../components';
 
 
@@ -55,5 +56,72 @@ describe('Swipe Component', () => {
     )
 
     expect(wrapper.find('.rs-next').find('span')).to.have.length(1)
+  })
+
+  it('should go to slide passed in gotoSlide(i)', () => {
+    const onSwipe = sinon.spy()
+
+    const wrapper = mount(
+      <Swipe onSwipe={onSwipe}
+      >
+        <Slide image={'a.jpg'} defaultImage={'c.jpg'}/>
+        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
+      </Swipe>
+    )
+
+    const comp = wrapper.instance()
+    const spy = sinon.spy(comp, 'gotoSlide')
+
+    comp.gotoSlide(1)
+
+    const args = {
+      currentIndex: 1,
+      initialIndex: 0
+    }
+
+    expect(spy.calledOnce).to.equal(true)
+
+    expect(wrapper.state('currentIndex')).to.equal(1)
+
+    expect(onSwipe.calledOnce).to.equal(true)
+    expect(onSwipe.calledWith(args)).to.equal(true)
+  })
+
+  it('should change slides at correct intervals if autoPlay is true', () => {
+    const onSwipe = sinon.spy()
+    const clock = sinon.useFakeTimers();
+
+    const wrapper = mount(
+      <Swipe
+        onSwipe={onSwipe}
+        autoPlay={true}
+        autoPlayInterval={5000}
+      >
+        <Slide image={'a.jpg'} defaultImage={'c.jpg'}/>
+        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
+        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
+      </Swipe>
+    )
+
+    clock.tick(4999)
+    expect(wrapper.state('currentIndex')).to.equal(0)
+    expect(onSwipe.calledOnce).to.equal(false)
+
+    clock.tick(1)
+    expect(wrapper.state('currentIndex')).to.equal(1)
+    expect(onSwipe.calledOnce).to.equal(true)
+
+    clock.tick(4999)
+    expect(wrapper.state('currentIndex')).to.equal(1)
+    expect(onSwipe.calledTwice).to.equal(false)
+
+    clock.tick(1)
+    expect(wrapper.state('currentIndex')).to.equal(2)
+    expect(onSwipe.calledTwice).to.equal(true)
+
+    clock.tick(5000)
+    expect(wrapper.state('currentIndex')).to.equal(0)
+    expect(onSwipe.calledThrice).to.equal(true)
+    expect(onSwipe.calledWith({currentIndex:0, initialIndex:2})).to.equal(true)
   })
 })

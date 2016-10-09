@@ -118,18 +118,19 @@ export default class Swipe extends Component {
   gotoPrev () {
     const {currentIndex} = this.state
     if (currentIndex > 0) {
-      this.gotoSlide(currentIndex - 1, currentIndex)
+      this.gotoSlide(currentIndex - 1)
     }
   }
 
   gotoNext () {
     const {currentIndex} = this.state
     if (currentIndex + 1 < this.props.children.length) {
-      this.gotoSlide(currentIndex + 1, currentIndex)
+      this.gotoSlide(currentIndex + 1)
     }
   }
 
-  gotoSlide (i, initial) {
+  gotoSlide (i) {
+    const initial = this.state.currentIndex
     this.setState({
       currentIndex: i
     }, () => (this.onChange(initial)))
