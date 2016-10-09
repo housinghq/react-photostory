@@ -124,4 +124,33 @@ describe('Swipe Component', () => {
     expect(onSwipe.calledThrice).to.equal(true)
     expect(onSwipe.calledWith({currentIndex:0, initialIndex:2})).to.equal(true)
   })
+
+  it('should execute onClick on click', () => {
+    const onSwipe = sinon.spy()
+    const onClick = sinon.spy()
+
+    const wrapper = mount(
+      <Swipe
+        onSwipe={onSwipe}
+        onClick={onClick}
+      >
+        <Slide image={'a.jpg'} defaultImage={'c.jpg'}/>
+        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
+        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
+      </Swipe>
+    )
+
+    const component = wrapper.instance()
+
+    wrapper.find('.rs-imgs-wrapper').simulate('click')
+
+    expect(onClick.calledOnce).to.equal(true)
+    expect(onClick.calledWith({index: 0})).to.equal(true)
+
+    component.gotoSlide(2)
+    wrapper.find('.rs-imgs-wrapper').simulate('click')
+
+    expect(onClick.calledTwice).to.equal(true)
+    expect(onClick.calledWith({index: 2})).to.equal(true)
+  })
 })

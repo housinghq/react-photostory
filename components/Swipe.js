@@ -30,7 +30,8 @@ export default class Swipe extends Component {
       'initLazyLoad',
       'hasSingleImage',
       'autoPlay',
-      'pause'
+      'pause',
+      'handleClick'
     ], this)
   }
 
@@ -168,6 +169,12 @@ export default class Swipe extends Component {
     return !(this.props.children.length > 1)
   }
 
+  handleClick() {
+    this.props.onClick({
+      index: this.state.currentIndex
+    })
+  }
+
   render () {
     const {className, children, prev, next} = this.props
 
@@ -204,6 +211,7 @@ export default class Swipe extends Component {
             style={style}
             onTouchStart={this.handleTouchStart}
             onTouchEnd={this.handleTouchEnd}
+            onClick={this.handleClick}
           >
             {children$}
           </div>
@@ -232,6 +240,10 @@ Swipe.propTypes = {
   // argument { initialIndex, currentIndex }
   onSwipe: PropTypes.func,
 
+  // function called on slide is clicked
+  // argument { index }
+  onClick: PropTypes.func,
+
   // index of initially visible image
   initialIndex: PropTypes.number,
 
@@ -256,6 +268,8 @@ Swipe.defaultProps = {
   overScan: 1,
   initialIndex: 0,
   onSwipe () {
+  },
+  onClick () {
   },
   prev: <button>PREV</button>,
   next: <button>NEXT</button>,
