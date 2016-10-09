@@ -5,6 +5,33 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import {Swipe, Slide} from '../components';
 
+function simulateDrag(drag){
+    const onSwipe = sinon.spy()
+
+    const wrapper = mount(
+      <Swipe
+        onSwipe={onSwipe}
+      >
+        <Slide image={'a.jpg'} defaultImage={'c.jpg'}/>
+        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
+        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
+      </Swipe>
+    )
+
+    wrapper.setState({width: 100})
+
+    wrapper.find('.rs-imgs-wrapper').simulate('touchstart', {
+      touches: [{
+        clientX: 0
+      }]
+    })
+
+    wrapper.setState({drag})
+
+    wrapper.find('.rs-imgs-wrapper').simulate('touchend')
+
+  return {wrapper, onSwipe}
+}
 
 describe('Swipe Component', () => {
   it('should add custom className to root element', () => {
@@ -152,5 +179,21 @@ describe('Swipe Component', () => {
 
     expect(onClick.calledTwice).to.equal(true)
     expect(onClick.calledWith({index: 2})).to.equal(true)
+  })
+
+  it('should not change to next slide when drag is less than threshold', () => {
+    const {wrapper, onSwipe} = simulateDrag(49)
+
+    expect(wrapper.state('drag')).to.equal(0)
+    expect(wrapper.state('currentIndex')).to.equal(0)
+    expect(onSwipe.calledOnce).to.equal(false)
+  })
+
+  it('should change to next slide when drag is more than threshold', () => {
+    const {wrapper, onSwipe} = simulateDrag(51)
+    expect(wrapper.state('drag')).to.equal(0)
+    expect(wrapper.state('currentIndex')).to.equal(1)
+    expect(onSwipe.calledOnce).to.equal(true)
+    expect(onSwipe.calledWith({currentIndex: 1, initialIndex: 0})).to.equal(true)
   })
 })

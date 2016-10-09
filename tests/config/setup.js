@@ -1,19 +1,18 @@
-require('babel-core/register');
-const path = require('path');
+require('babel-core/register')
 
-const jsdom = require('jsdom').jsdom;
-const exposedProperties = ['window', 'navigator', 'document'];
+const jsdom = require('jsdom').jsdom
+const exposedProperties = ['window', 'navigator', 'document']
 
-global.document = jsdom('');
-global.window = document.defaultView;
-global.Image = document.defaultView.Image;
+global.document = jsdom('')
+global.window = document.defaultView
+global.Image = document.defaultView.Image
 Object.keys(document.defaultView).forEach((property) => {
   if (typeof global[property] === 'undefined') {
-    exposedProperties.push(property);
-    global[property] = document.defaultView[property];
+    exposedProperties.push(property)
+    global[property] = document.defaultView[property]
   }
-});
+})
 
 global.navigator = {
   userAgent: 'node.js'
-};
+}
