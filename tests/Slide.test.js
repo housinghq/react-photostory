@@ -9,7 +9,7 @@ import { Slide } from '../components'
 describe('Slide Component', () => {
   it('should set the defaultImage as background if provided', () => {
     const wrapper = shallow(
-      <Slide image={'a.jpg'} defaultImage={'b.jpg'}/>
+      <Slide image={'a.jpg'} defaultImage={'b.jpg'}></Slide>
     )
 
     expect(wrapper.find('.rs-img').get(0).props.style.backgroundImage).to.equal('url(b.jpg)')
@@ -17,7 +17,7 @@ describe('Slide Component', () => {
 
   it('should set image as background if defaultImage is not provided', () => {
     const wrapper = shallow(
-      <Slide image={'a.jpg'}/>
+      <Slide image={'a.jpg'}></Slide>
     )
 
     expect(wrapper.find('.rs-img').get(0).props.style.backgroundImage).to.equal('url(a.jpg)')
