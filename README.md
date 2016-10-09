@@ -2,8 +2,11 @@
 
 > A lightweight carousel made in React and optimized for mobile
 
+[![codecov](https://codecov.io/gh/housinghq/react-photostory/branch/master/graph/badge.svg)](https://codecov.io/gh/housinghq/react-photostory)
+
+
 Demo is available [here](https://housinghq.github.io/react-photostory). Make sure devtools is
-open and mobile emulation is selected as this library currently supports only touch events.
+open and mobile emulation is selected as this library currently only supports touch events.
 
 ##Features
 
@@ -30,7 +33,7 @@ import { Slide, Swipe } from 'react-photostory';
 
 ## Options
 
-### <Swipe/> Component
+### &lt;Swipe/&gt; Component
 
 prop|default|description
 ----|-------|-----------
@@ -61,7 +64,7 @@ const x = (
 x.gotoSlide(2) // will go to the 3rd slide
 ```
 
-### <Slide/> Component
+### &lt;Slide/&gt; Component
 
 prop|default|description
 ----|-------|-----
