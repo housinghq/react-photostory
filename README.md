@@ -2,6 +2,9 @@
 
 > A lightweight carousel made in React and optimized for mobile
 
+Demo is available [here](https://housinghq.github.io/react-photostory). Make sure devtools is
+open and mobile emulation is selected as this library currently supports only touch events.
+
 ##Features
 
 1. lazy-loading by default
@@ -78,8 +81,16 @@ a.load() // now image will be loaded
 <Slide image="a.jpg" defaultImage="default1.jpg" autoLoad={true}>Text 1</Slide>
 ```
 
-### Contribution
-Take a pull, create a branch and get started.
+### Development
+```
+git clone https://github.com/housinghq/react-photostory
+cd react-photostory
+npm install
+npm run storybook
+```
+Make sure you develop in emulation mode (open devtools and select mobile emulation). Currently this only supports touch events.
+
+Make sure you open issue before opening a PR. This package is optimised for mobile so not many features may be implemented.
 
 ### License
 MIT
