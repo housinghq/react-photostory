@@ -1,19 +1,54 @@
-#react-component-boilerplate
+#react-photostory
 
-> A boilerplate to create React components using react-transform-hmr, Babel 6, webpack and SASS
+> A lightweight carousel made in React and optimized for mobile
 
 ##Features
 
-1. [Babel 6](http://babeljs.io/) for ES6 and ES7
-1. [Webpack](http://webpack.github.io/) for Bundling
-1. [style-loader](https://github.com/webpack/style-loader), [sass-loader](https://github.com/jtangelder/sass-loader) and [less-loader](https://github.com/webpack/less-loader) to allow import of stylesheets in plain css, sass and less,
-1. [mocha](https://mochajs.org/) to allow writing unit tests for the project
+1. lazy-loading by default
+1. AutoPlay
+1. Drag and swipe
 
-## Getting started
+## Installation
 ```
-cd react-component-boilerplate/
-npm install
-npm run storybook
+npm install --save react-photostory
 ```
 
-Learn how to write stories [here](https://github.com/kadirahq/react-storybook/blob/master/docs/writing_stories.md)
+## Basic Usage
+```js
+import { Slide, Swipe } from 'react-photostory';
+
+<Swipe
+  className="photostory"
+>
+    <Slide image="a.jpg" defaultImage="default1.jpg">Text 1</Slide>
+    <Slide image="b.jpg" defaultimage="default2.jpg">Text 2</Slide>
+</Swipe>
+```
+
+## Options
+
+### <Swipe/> Component
+
+prop|default|description
+----|-------|-----------
+className|''|Custom classname
+initialIndex|0|initially visible slide index
+autoPlay|false|whether to display slide show or not
+overScan|0|Number of Slide offsets to load excluding the current slide.If its 1 it will load current, current+-1
+onSwipe|({initialIndex, currentIndex})| function executed whenever the current slide changes
+prev||React element to replace the PREV button
+next||React element to replace the NEXT button
+threshold|0.5|Ratio of carousel width one should drag to make successful swipe
+responsive|false|Should the gallery be responsive
+
+### <Slide/> Component
+
+prop|description
+image|final image to be loaded
+defaultImage|pre-loader image to be shown.
+
+### Contribution
+Take a pull, create a branch and get started.
+
+### License
+MIT

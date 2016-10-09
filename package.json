@@ -61,16 +61,16 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "isparta": "^4.0.0",
     "istanbul": "^1.1.0-alpha.1",
-    "jest-cli": "^16.0.1",
+    "jsdom": "^9.6.0",
     "mocha": "^3.1.0",
     "react-addons-test-utils": "^15.3.2",
     "rimraf": "^2.5.4",
     "semantic-release": "^4.3.5",
-    "sinon": "^1.17.5"
+    "sinon": "^1.17.6"
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "react": "^15.3.1"
+    "react": "^15.x.x"
   },
   "config": {
     "commitizen": {

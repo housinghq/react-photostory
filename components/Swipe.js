@@ -259,5 +259,5 @@ Swipe.defaultProps = {
   prev: <button>PREV</button>,
   next: <button>NEXT</button>,
   threshold: 0.5,
-  responsive: true
+  responsive: false
 }
