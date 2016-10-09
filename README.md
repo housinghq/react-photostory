@@ -44,6 +44,7 @@ responsive|false|Should the gallery be responsive
 ### <Slide/> Component
 
 prop|description
+----|------------
 image|final image to be loaded
 defaultImage|pre-loader image to be shown.
 
