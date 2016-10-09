@@ -82,6 +82,7 @@ Slide.propTypes = {
 }
 
 Slide.defaultProps = {
+  title: '',
   attributes: {},
   autoLoad: false
 }
