@@ -19,7 +19,8 @@
     "test:watch": "mocha --require tests/config/setup 'tests/**/*.test.js' --watch",
     "test:cover": "istanbul cover -x *.test.js _mocha -- -R spec --require tests/config/setup 'tests/**/*.test.js'",
     "test:report": "cat ./coverage/lcov.info | codecov && rm -rf ./coverage",
-    "build": "babel components --out-dir dist"
+    "build": "babel components --out-dir dist",
+    "docs": "build-storybook -o docs"
   },
   "repository": {
     "type": "git",
