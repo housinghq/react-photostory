@@ -169,7 +169,7 @@ export default class Swipe extends Component {
     return !(this.props.children.length > 1)
   }
 
-  handleClick() {
+  handleClick () {
     this.props.onClick({
       index: this.state.currentIndex
     })
