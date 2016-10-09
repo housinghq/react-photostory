@@ -12,6 +12,10 @@ export default class Slide extends Component {
     this.load = this.load.bind(this)
   }
 
+  componentDidMount () {
+    if (this.props.autoLoad) this.load()
+  }
+
   componentWillReceiveProps (nextProps) {
     this.setState({
       width: nextProps.width
@@ -57,6 +61,9 @@ Slide.propTypes = {
   // index of slide
   index: PropTypes.number,
 
+  // should the component automatically lazy Load
+  autoLoad: PropTypes.bool,
+
   // width of slide
   width: PropTypes.number,
 
@@ -67,4 +74,8 @@ Slide.propTypes = {
   defaultImage: PropTypes.string,
 
   children: PropTypes.array
+}
+
+Slide.defaultProps = {
+  autoLoad: false
 }
