@@ -5,7 +5,7 @@ export default class Slide extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      image: props.lazyLoad ? (props.defaultImage || props.image) : props.defaultImage,
+      image: props.lazyLoad ? props.defaultImage : (props.defaultImage || props.image),
       width: 0
     }
 
@@ -38,8 +38,9 @@ export default class Slide extends Component {
   render () {
     const {width, image, attributes, children, title} = this.props
 
-    const style = {width}
+    const style = {}
 
+    if (width) style.width = width
     if (this.state.image) style.backgroundImage = `url(${this.state.image})`
 
     const mainClass = classNames('rs-img', {

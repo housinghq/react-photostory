@@ -17,7 +17,7 @@ describe('Slide Component', () => {
 
   it('should set image as background if defaultImage is not provided', () => {
     const wrapper = shallow(
-      <Slide image={'a.jpg'}></Slide>
+      <Slide image={'a.jpg'} lazyLoad={false}></Slide>
     )
 
     expect(wrapper.find('.rs-img').get(0).props.style.backgroundImage).to.equal('url(a.jpg)')

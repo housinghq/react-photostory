@@ -191,9 +191,10 @@ export default class Swipe extends Component {
     })
 
     const style = {
-      width: `${children.length * width}px`,
+      width: width ? `${children.length * width}px` : 'auto',
       transform: `translateX(${-(currentIndex * width) - drag}px)`
     }
+
     const self = this
     const children$ = React.Children.map(children, (child, index) => (
       React.cloneElement(child, {
