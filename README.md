@@ -36,6 +36,7 @@ initialIndex|0|initially visible slide index
 autoPlay|false|whether to display slide show or not
 overScan|0|Number of Slide offsets to load excluding the current slide.If its 1 it will load current, current+-1
 onSwipe|({initialIndex, currentIndex})| function executed whenever the current slide changes
+onClick|{index}|function executed when a slide is clicked
 prev||React element to replace the PREV button
 next||React element to replace the NEXT button
 threshold|0.5|Ratio of carousel width one should drag to make successful swipe
