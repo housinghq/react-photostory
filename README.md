@@ -72,6 +72,7 @@ image|string|final image to be loaded
 defaultImage|string|pre-loader image to be shown
 autoLoad|false|should the component automatically lazyLoad the image
 attributes| {} | Additional attributes for component root
+title| '' | serves like `alt` attribute for `img` tag
 
 If `autoload` is set to false the you have to manually call `.load()` to load the image
 

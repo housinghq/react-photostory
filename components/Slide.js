@@ -36,7 +36,7 @@ export default class Slide extends Component {
   }
 
   render () {
-    const {width, image, attributes, children} = this.props
+    const {width, image, attributes, children, title} = this.props
 
     const style = {
       width,
@@ -51,6 +51,7 @@ export default class Slide extends Component {
       <div
         className={mainClass}
         style={style}
+        title={title}
         {...attributes}
       >{children}</div>
     )
@@ -72,6 +73,10 @@ Slide.propTypes = {
 
   // url of pre loaded image
   defaultImage: PropTypes.string,
+
+  // title for the image
+  // serves similar to alt attribute for image
+  title: PropTypes.string,
 
   children: PropTypes.array
 }
