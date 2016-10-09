@@ -36,7 +36,7 @@ export default class Slide extends Component {
   }
 
   render () {
-    const {width, image, index, children} = this.props
+    const {width, image, attributes, children} = this.props
 
     const style = {
       width,
@@ -50,16 +50,16 @@ export default class Slide extends Component {
     return (
       <div
         className={mainClass}
-        data-index={index}
         style={style}
+        {...attributes}
       >{children}</div>
     )
   }
 }
 
 Slide.propTypes = {
-  // index of slide
-  index: PropTypes.number,
+  // additional attributes for the root node
+  attributes: PropTypes.object,
 
   // should the component automatically lazy Load
   autoLoad: PropTypes.bool,
@@ -77,5 +77,6 @@ Slide.propTypes = {
 }
 
 Slide.defaultProps = {
+  attributes: {},
   autoLoad: false
 }

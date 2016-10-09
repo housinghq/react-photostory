@@ -199,7 +199,7 @@ export default class Swipe extends Component {
       React.cloneElement(child, {
         width,
         ref: (ref) => (self[`imageRef${index}`] = ref),
-        index
+        attributes: {'data-index': index}
       }))
     )
 
