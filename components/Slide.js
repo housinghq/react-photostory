@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
-import autoBind from 'auto-bind'
+import autoBind from 'react-auto-bind'
 
 export default class Slide extends Component {
   constructor (props) {

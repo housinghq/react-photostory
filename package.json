@@ -70,9 +70,9 @@
     "sinon": "^1.17.6"
   },
   "dependencies": {
-    "auto-bind": "^0.1.0",
     "classnames": "^2.2.5",
-    "react": "^15.x.x"
+    "react": "^15.x.x",
+    "react-auto-bind": "^0.2.0"
   },
   "config": {
     "commitizen": {
