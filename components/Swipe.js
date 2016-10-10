@@ -110,8 +110,8 @@ export default class Swipe extends Component {
     }
   }
 
-  gotoSlide (i, isManual=true) {
-    if(isManual) this.pause()
+  gotoSlide (i, isManual = true) {
+    if (isManual) this.pause()
     const initial = this.state.currentIndex
     this.setState({
       currentIndex: i
@@ -156,7 +156,7 @@ export default class Swipe extends Component {
     })
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     window.removeEventListener('resize', this.setWidth)
   }
 
