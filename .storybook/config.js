@@ -2,6 +2,7 @@ import { configure } from '@kadira/storybook';
 import { setOptions } from '@kadira/storybook-addon-options';
 
 import '../components/swipe.css'
+import './custom.css'
 
 setOptions({
   name: 'REACT-PHOTOSTORY',
