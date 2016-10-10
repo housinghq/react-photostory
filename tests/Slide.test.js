@@ -12,7 +12,7 @@ describe('Slide Component', () => {
       <Slide image={'a.jpg'} defaultImage={'b.jpg'}/>
     )
 
-    expect(wrapper.find('.rs-img').get(0).props.style.backgroundImage).to.equal('url(b.jpg)')
+    expect(wrapper.find('.rs-img').get(0).props.style.backgroundImage).to.equal('url(\'b.jpg\')')
   })
 
   it('should set image as background if defaultImage is not provided', () => {
@@ -20,7 +20,7 @@ describe('Slide Component', () => {
       <Slide image={'a.jpg'} lazyLoad={false}/>
     )
 
-    expect(wrapper.find('.rs-img').get(0).props.style.backgroundImage).to.equal('url(a.jpg)')
+    expect(wrapper.find('.rs-img').get(0).props.style.backgroundImage).to.equal('url(\'a.jpg\')')
   })
 
   it('should load `image` when .load() is called', () => {
