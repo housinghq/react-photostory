@@ -25,7 +25,7 @@ export default class Slide extends Component {
 
   load () {
     const {image} = this.props
-    if (this.state.image !== image) {
+    if (image && this.state.image !== image) {
       const img = new Image()
       img.src = image
       img.onload = () => {
