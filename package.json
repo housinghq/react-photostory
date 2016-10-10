@@ -19,7 +19,8 @@
     "test:watch": "mocha --require tests/config/setup 'tests/**/*.test.js' --watch",
     "test:cover": "istanbul cover -x *.test.js _mocha -- -R spec --require tests/config/setup 'tests/**/*.test.js'",
     "test:report": "cat ./coverage/lcov.info | codecov && rm -rf ./coverage",
-    "build": "rm -rf dist && babel components --out-dir dist && cp components/swipe.css dist/swipe.css",
+    "build": "rm -rf dist && babel components --out-dir dist && npm run build:styles",
+    "build:styles": "node-sass components --output dist",
     "docs": "build-storybook -o docs"
   },
   "repository": {
@@ -64,8 +65,10 @@
     "istanbul": "^1.1.0-alpha.1",
     "jsdom": "^9.6.0",
     "mocha": "^3.1.0",
+    "node-sass": "^3.10.1",
     "react-addons-test-utils": "^15.3.2",
     "rimraf": "^2.5.4",
+    "sass-loader": "^4.0.2",
     "semantic-release": "^4.3.5",
     "sinon": "^1.17.6"
   },
