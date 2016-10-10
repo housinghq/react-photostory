@@ -147,7 +147,7 @@ export default class Swipe extends Component {
   }
 
   hasSingleImage () {
-    return !(this.props.children.length > 1)
+    return this.props.children.length === 1
   }
 
   handleClick () {
