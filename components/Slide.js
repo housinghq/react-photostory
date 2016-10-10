@@ -37,14 +37,14 @@ export default class Slide extends Component {
   }
 
   render () {
-    const {width, image, attributes, children, title} = this.props
+    const {width, image, attributes, children, title, className} = this.props
 
     const style = {}
 
     if (width) style.width = width
     if (this.state.image) style.backgroundImage = `url(${this.state.image})`
 
-    const mainClass = classNames('rs-img', {
+    const mainClass = classNames('rs-img', className, {
       'rs-loaded': this.state.image === image
     })
 
@@ -60,6 +60,8 @@ export default class Slide extends Component {
 }
 
 Slide.propTypes = {
+  className: PropTypes.string,
+
   // additional attributes for the root node
   attributes: PropTypes.object,
 

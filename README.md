@@ -64,6 +64,7 @@ x.gotoSlide(2) // will go to the 3rd slide
 
 prop|default|description
 ----|-------|-----
+className|string|custom classname for Slide component
 image|string|final image to be loaded
 defaultImage|string|pre-loader image to be shown
 autoLoad|false|should the component automatically lazyLoad the image
