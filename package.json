@@ -21,6 +21,7 @@
     "test:report": "cat ./coverage/lcov.info | codecov && rm -rf ./coverage",
     "build": "rm -rf dist && babel components --out-dir dist && npm run build:styles",
     "build:styles": "node-sass components --output dist",
+    "build:watch": "babel --watch components --out-dir dist",
     "docs": "build-storybook -o docs"
   },
   "repository": {
