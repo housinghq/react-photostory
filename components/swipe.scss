@@ -1,18 +1,18 @@
-.rs-swipe-gallery{
+@import "slide";
+
+.rs-swipe-gallery {
   height: 300px;
   background-color: #f6f6f6;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
-.rs-imgs-wrapper{
+.rs-imgs-wrapper {
   height: 100%;
   width: 100%;
   overflow: hidden;
   will-change: transform;
-  transition: transform .3s ease-out;
-}
+  transition: transform .3s ease-out; }
 
-.rs-img{
+.rs-img {
   height: 100%;
   background: no-repeat center;
   background-size: cover;
@@ -20,9 +20,7 @@
   opacity: 0.6;
   width: 100%;
   will-change: opacity;
-  transition: opacity .3s;
-}
+  transition: opacity .3s; }
 
-.rs-loaded{
-  opacity: 1;
-}
+.rs-loaded {
+  opacity: 1; }
