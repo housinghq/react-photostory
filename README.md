@@ -3,7 +3,7 @@
 > A lightweight carousel made in React and optimized for mobile
 
 [![codecov](https://codecov.io/gh/housinghq/react-photostory/branch/master/graph/badge.svg)](https://codecov.io/gh/housinghq/react-photostory)
-
+[![Build Status](https://travis-ci.org/housinghq/react-photostory.svg?branch=master)](https://travis-ci.org/housinghq/react-photostory)
 
 Demo is available [here](https://housinghq.github.io/react-photostory). Make sure devtools is
 open and mobile emulation is selected as this library currently only supports touch events.
@@ -23,9 +23,7 @@ npm install --save react-photostory
 ```js
 import { Slide, Swipe } from 'react-photostory';
 
-<Swipe
-  className="photostory"
->
+<Swipe className="photostory">
     <Slide image="a.jpg" defaultImage="default1.jpg">Text 1</Slide>
     <Slide image="b.jpg" defaultimage="default2.jpg">Text 2</Slide>
 </Swipe>
@@ -52,9 +50,7 @@ To manually go to a particular slide you can use `gotoSlide(i)` method
 
 ```js
 const x = (
-<Swipe
-  className="photostory"
->
+<Swipe className="photostory">
     <Slide image="a.jpg" defaultImage="default1.jpg">Text 1</Slide>
     <Slide image="b.jpg" defaultimage="default2.jpg">Text 2</Slide>
     <Slide image="c.jpg" defaultimage="default3.jpg">Text 2</Slide>
@@ -98,5 +94,4 @@ Make sure you develop in emulation mode (open devtools and select mobile emulati
 
 Make sure you open issue before opening a PR. This package is optimised for mobile so not many features may be implemented.
 
-### License
-MIT
+License @ MIT
