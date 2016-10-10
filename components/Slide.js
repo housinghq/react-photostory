@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
+import autoBind from 'auto-bind'
 
 export default class Slide extends Component {
   constructor (props) {
@@ -9,7 +10,7 @@ export default class Slide extends Component {
       width: 0
     }
 
-    this.load = this.load.bind(this)
+    autoBind(this)
   }
 
   componentDidMount () {
@@ -80,7 +81,9 @@ Slide.propTypes = {
 
   lazyLoad: PropTypes.bool,
 
-  children: PropTypes.array
+  children: PropTypes.oneOfType([
+    PropTypes.array, PropTypes.object
+  ])
 }
 
 Slide.defaultProps = {

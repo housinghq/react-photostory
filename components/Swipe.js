@@ -1,12 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
-
-function autoBind (methods, context) {
-  methods.forEach(method => {
-    // eslint-disable-next-line no-param-reassign
-    context[method] = context[method].bind(context)
-  })
-}
+import autoBind from 'auto-bind'
 
 export default class Swipe extends Component {
   constructor (props) {
@@ -18,21 +12,7 @@ export default class Swipe extends Component {
       drag: 0
     }
 
-    autoBind([
-      'setWidth',
-      'handleTouchStart',
-      'handleTouchEnd',
-      'handleTouchMove',
-      'gotoNext',
-      'gotoPrev',
-      'gotoSlide',
-      'onChange',
-      'initLazyLoad',
-      'hasSingleImage',
-      'autoPlay',
-      'pause',
-      'handleClick'
-    ], this)
+    autoBind(this)
   }
 
   componentDidMount () {
@@ -119,18 +99,19 @@ export default class Swipe extends Component {
   gotoPrev () {
     const {currentIndex} = this.state
     if (currentIndex > 0) {
-      this.gotoSlide(currentIndex - 1)
+      this.gotoSlide(currentIndex - 1, false)
     }
   }
 
   gotoNext () {
     const {currentIndex} = this.state
     if (currentIndex + 1 < this.props.children.length) {
-      this.gotoSlide(currentIndex + 1)
+      this.gotoSlide(currentIndex + 1, false)
     }
   }
 
-  gotoSlide (i) {
+  gotoSlide (i, isManual=true) {
+    if(isManual) this.pause()
     const initial = this.state.currentIndex
     this.setState({
       currentIndex: i
@@ -173,6 +154,10 @@ export default class Swipe extends Component {
     this.props.onClick({
       index: this.state.currentIndex
     })
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.setWidth)
   }
 
   render () {
@@ -260,7 +245,9 @@ Swipe.propTypes = {
   // next React element
   next: PropTypes.element,
 
-  children: PropTypes.array
+  children: PropTypes.oneOfType([
+    PropTypes.array, PropTypes.object
+  ])
 }
 
 Swipe.defaultProps = {
