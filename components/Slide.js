@@ -42,7 +42,7 @@ export default class Slide extends Component {
     const style = {}
 
     if (width) style.width = width
-    if (this.state.image) style.backgroundImage = `url(${this.state.image})`
+    if (this.state.image) style.backgroundImage = `url('${this.state.image}')`
 
     const mainClass = classNames('rs-img', {
       'rs-loaded': this.state.image === image
