@@ -1,5 +1,6 @@
 {
   "name": "react-photostory",
+  "version": "0.1.0",
   "description": "A mobile optimised lighweight gallery component written in React",
   "main": "dist/index.js",
   "jsnext:main": "components/index.js",
