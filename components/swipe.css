@@ -6,9 +6,10 @@
 
 .rs-imgs-wrapper{
   height: 100%;
+  width: 100%;
   overflow: hidden;
   will-change: transform;
-  transition: transform .2s ease-out;
+  transition: transform .3s ease-out;
 }
 
 .rs-img{
@@ -17,6 +18,7 @@
   background-size: cover;
   float: left;
   opacity: 0.6;
+  width: 100%;
   will-change: opacity;
   transition: opacity .3s;
 }

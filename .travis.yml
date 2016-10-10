@@ -6,12 +6,15 @@ cache:
 notifications:
   email: false
 node_js:
-  - '4'
+  - '6'
 before_install:
-  - npm i -g npm@^2.0.0
+  - npm i -g npm@^3.0.0
 before_script:
   - npm prune
+script:
+  - npm run test:cover
 after_success:
+  - npm run test:report
   - npm run semantic-release
 branches:
   except:
