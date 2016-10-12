@@ -21,30 +21,27 @@ open and mobile emulation is selected as this library currently only supports to
 1. Drag and swipe
 
 ## Installation
+This library works with [react-lazy-card](https://github.com/housinghq/react-lazy-card) (don't
+worry. they are very light even when used together . react-lazy-card may serve other purposes in the app so we separated it).
+
 ```
-npm install --save react-photostory
+npm install --save react-photostory react-lazy-card
 ```
 
 ## Basic Usage
 **JSX**:
 ```js
-import { Slide, Swipe } from 'react-photostory';
+import Swipe from 'react-photostory';
+import LazyCard from 'react-lazy-card';
 
 <Swipe className="photostory">
-    <Slide image="a.jpg" defaultImage="default1.jpg">Text 1</Slide>
-    <Slide image="b.jpg" defaultimage="default2.jpg">Text 2</Slide>
+    <LazyCard image="a.jpg" defaultImage="default1.jpg">Text 1</LazyCard>
+    <LazyCard image="b.jpg" defaultimage="default2.jpg">Text 2</LazyCard>
 </Swipe>
 ```
 **CSS**
 ```css
-@import "react-photostory/dist/swipe" // contains CSS of Slide
-
-/*
-In case you wan't to only use the Slide component
-as an image lazy loading component, just import
-the CSS for slide
-*/
-@import "react-photostory/dist/slide"
+@import "react-photostory/dist/swipe"
 ```
 
 ## Options
@@ -77,31 +74,6 @@ const x = (
 )
 
 x.gotoSlide(2) // will go to the 3rd slide
-```
-
-### &lt;Slide/&gt; Component
-
-prop|default|description
-----|-------|-----
-className|string|custom classname for Slide component
-image|string|final image to be loaded
-defaultImage|string|pre-loader image to be shown
-autoLoad|false|should the component automatically lazyLoad the image
-attributes| {} | Additional attributes for component root
-title| '' | serves like `alt` attribute for `img` tag
-lazyLoad|true|enable/disable lazy load
-
-#### .load()
-If `autoload` is set to false the you have to manually call `.load()` to load the image
-
-```js
-// This will not load `image` automatically. Will load default1.jpg
-const a = <Slide image="a.jpg" defaultImage="default1.jpg">Text 1</Slide>
-a.load() // now image will be loaded
-
-// Alternatively set `autoLoad` to true. So `a.jpg` will automatically replace
-// default1.jpg when it is loaded.
-<Slide image="a.jpg" defaultImage="default1.jpg" autoLoad={true}>Text 1</Slide>
 ```
 
 ### Development
