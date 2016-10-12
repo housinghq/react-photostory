@@ -7,6 +7,9 @@
   width: 100%;
   will-change: opacity;
   transition: opacity .3s;
+  -webkit-transition: opacity .3s;
+  -moz-transition: opacity .3s;
+  -o-transition: opacity .3s;
 }
 
 .rs-loaded{

@@ -10,17 +10,25 @@
   width: 100%;
   overflow: hidden;
   will-change: transform;
-  transition: transform .3s ease-out; }
+  transition: transform .3s ease-out;
+  -webkit-transition: transform .3s ease-out;
+  -moz-transition: transform .3s ease-out;
+  -o-transition: transform .3s ease-out;
+}
 
 .rs-img {
   height: 100%;
   background: no-repeat center;
-  background-size: cover;
+  background-size: contain;
   float: left;
   opacity: 0.6;
   width: 100%;
   will-change: opacity;
-  transition: opacity .3s; }
+  transition: opacity .3s;
+  -webkit-transition: opacity .3s;
+  -moz-transition: opacity .3s;
+  -o-transition: opacity .3s;
+}
 
 .rs-loaded {
   opacity: 1; }
