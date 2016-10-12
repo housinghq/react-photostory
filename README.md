@@ -5,6 +5,8 @@
 [![codecov](https://codecov.io/gh/housinghq/react-photostory/branch/master/graph/badge.svg)](https://codecov.io/gh/housinghq/react-photostory)
 [![Build Status](https://travis-ci.org/housinghq/react-photostory.svg?branch=master)](https://travis-ci.org/housinghq/react-photostory)
 
+<p align="center"><img src="demo.gif" width="400"/></p>
+
 Demo is available [here](https://housinghq.github.io/react-photostory). Make sure devtools is
 open and mobile emulation is selected as this library currently only supports touch events.
 
@@ -41,11 +43,12 @@ autoPlay|false|whether to display slide show or not
 overScan|0|Number of Slide offsets to load excluding the current slide.If its 1 it will load current, current+-1
 onSwipe|({initialIndex, currentIndex})| function executed whenever the current slide changes
 onClick|{index}|function executed when a slide is clicked
-prev||React element to replace the PREV button
-next||React element to replace the NEXT button
+prev|&lt;button&gt;PREV&lt;/button&gt;|React element to replace the PREV button
+next|&lt;button&gt;NEXT&lt;/button&gt;|React element to replace the NEXT button
 threshold|0.5|Ratio of carousel width one should drag to make successful swipe
 responsive|false|Should the gallery be responsive
 
+#### .gotoSlide(i)
 To manually go to a particular slide you can use `gotoSlide(i)` method
 
 ```js
@@ -72,6 +75,7 @@ attributes| {} | Additional attributes for component root
 title| '' | serves like `alt` attribute for `img` tag
 lazyLoad|true|enable/disable lazy load
 
+#### .load()
 If `autoload` is set to false the you have to manually call `.load()` to load the image
 
 ```js
@@ -95,4 +99,5 @@ Make sure you develop in emulation mode (open devtools and select mobile emulati
 
 Make sure you open issue before opening a PR. This package is optimised for mobile so not many features may be implemented.
 
-License @ MIT
+###License
+MIT @ Loconsolutions
