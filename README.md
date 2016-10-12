@@ -1,11 +1,13 @@
 #react-photostory
 
-> A lightweight carousel made in React and optimized for mobile
+> A lightweight carousel made in React and optimized for mobile.
 
 [![codecov](https://codecov.io/gh/housinghq/react-photostory/branch/master/graph/badge.svg)](https://codecov.io/gh/housinghq/react-photostory)
 [![Build Status](https://travis-ci.org/housinghq/react-photostory.svg?branch=master)](https://travis-ci.org/housinghq/react-photostory)
 
 <p align="center"><img src="demo.gif" width="400"/></p>
+
+
 
 Demo is available [here](https://housinghq.github.io/react-photostory). Make sure devtools is
 open and mobile emulation is selected as this library currently only supports touch events.
@@ -22,6 +24,7 @@ npm install --save react-photostory
 ```
 
 ## Basic Usage
+**JSX**:
 ```js
 import { Slide, Swipe } from 'react-photostory';
 
@@ -29,6 +32,17 @@ import { Slide, Swipe } from 'react-photostory';
     <Slide image="a.jpg" defaultImage="default1.jpg">Text 1</Slide>
     <Slide image="b.jpg" defaultimage="default2.jpg">Text 2</Slide>
 </Swipe>
+```
+**CSS**
+```css
+@import "react-photostory/dist/swipe" // contains CSS of Slide
+
+/**
+* In case you wan't to only use the Slide component
+* as an image lazy loading component, just import
+* the CSS for slide
+**/
+@import "react-photostory/dist/slide"
 ```
 
 ## Options
@@ -46,7 +60,7 @@ onClick|{index}|function executed when a slide is clicked
 prev|&lt;button&gt;PREV&lt;/button&gt;|React element to replace the PREV button
 next|&lt;button&gt;NEXT&lt;/button&gt;|React element to replace the NEXT button
 threshold|0.5|Ratio of carousel width one should drag to make successful swipe
-responsive|false|Should the gallery be responsive
+responsive|false|whether or not to listen to window resize event
 
 #### .gotoSlide(i)
 To manually go to a particular slide you can use `gotoSlide(i)` method
@@ -97,7 +111,7 @@ npm run storybook
 ```
 Make sure you develop in emulation mode (open devtools and select mobile emulation). Currently this only supports touch events.
 
-Make sure you open issue before opening a PR. This package is optimised for mobile so not many features may be implemented.
+Open an issue before opening a PR. This package is optimised for mobile so its hard to include all the features.
 
 ###License
 MIT @ Loconsolutions
