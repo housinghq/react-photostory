@@ -3,7 +3,8 @@ const { describe, it } = global;
 import { shallow, mount } from 'enzyme';
 import { expect } from 'chai'
 import sinon from 'sinon'
-import {Swipe, Slide} from '../components';
+import Swipe from '../components';
+import LazyCard from 'react-lazy-card/dist'
 
 function simulateDrag(drag){
     const onSwipe = sinon.spy()
@@ -12,9 +13,9 @@ function simulateDrag(drag){
       <Swipe
         onSwipe={onSwipe}
       >
-        <Slide image={'a.jpg'} defaultImage={'c.jpg'}/>
-        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
-        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
+        <LazyCard image={'a.jpg'} defaultImage={'c.jpg'}/>
+        <LazyCard image={'b.jpg'} defaultImage={'d.jpg'}/>
+        <LazyCard image={'b.jpg'} defaultImage={'d.jpg'}/>
       </Swipe>
     )
 
@@ -37,7 +38,7 @@ describe('Swipe Component', () => {
   it('should add custom className to root element', () => {
     const wrapper = shallow(
       <Swipe className={'test'}>
-        <Slide image={'a'} defaultImage={'b'}/>
+        <LazyCard image={'a'} defaultImage={'b'}/>
       </Swipe>
     );
 
@@ -47,28 +48,28 @@ describe('Swipe Component', () => {
   it('should use the same default image for all if defaultImages prop is string', () => {
     const wrapper = mount(
       <Swipe>
-        <Slide image={'a.jpg'} defaultImage={'default.jpg'}/>
-        <Slide image={'b.jpg'} defaultImage={'default.jpg'}/>
+        <LazyCard image={'a.jpg'} defaultImage={'default.jpg'}/>
+        <LazyCard image={'b.jpg'} defaultImage={'default.jpg'}/>
       </Swipe>
     )
 
-    expect(wrapper.find(Slide)).to.have.length(2)
+    expect(wrapper.find(LazyCard)).to.have.length(2)
 
-    expect(wrapper.find(Slide).get(0).state.image).to.equal('default.jpg')
-    expect(wrapper.find(Slide).get(1).state.image).to.equal('default.jpg')
+    expect(wrapper.find(LazyCard).get(0).state.image).to.equal('default.jpg')
+    expect(wrapper.find(LazyCard).get(1).state.image).to.equal('default.jpg')
   })
 
   it('should use different default images if defaultImages prop is array', () => {
     const wrapper = mount(
       <Swipe>
-        <Slide image={'a.jpg'} defaultImage={'c.jpg'}/>
-        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
+        <LazyCard image={'a.jpg'} defaultImage={'c.jpg'}/>
+        <LazyCard image={'b.jpg'} defaultImage={'d.jpg'}/>
       </Swipe>
     )
 
-    expect(wrapper.find(Slide)).to.have.length(2)
-    expect(wrapper.find(Slide).get(0).state.image).to.equal('c.jpg')
-    expect(wrapper.find(Slide).get(1).state.image).to.equal('d.jpg')
+    expect(wrapper.find(LazyCard)).to.have.length(2)
+    expect(wrapper.find(LazyCard).get(0).state.image).to.equal('c.jpg')
+    expect(wrapper.find(LazyCard).get(1).state.image).to.equal('d.jpg')
   })
 
   it('should replace next and prev element if it is passed', () => {
@@ -77,8 +78,8 @@ describe('Swipe Component', () => {
         next={<span>NEXT</span>}
         prev={<span>PREV</span>}
       >
-        <Slide image={'a.jpg'} defaultImage={'c.jpg'}/>
-        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
+        <LazyCard image={'a.jpg'} defaultImage={'c.jpg'}/>
+        <LazyCard image={'b.jpg'} defaultImage={'d.jpg'}/>
       </Swipe>
     )
 
@@ -91,8 +92,8 @@ describe('Swipe Component', () => {
     const wrapper = mount(
       <Swipe onSwipe={onSwipe}
       >
-        <Slide image={'a.jpg'} defaultImage={'c.jpg'}/>
-        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
+        <LazyCard image={'a.jpg'} defaultImage={'c.jpg'}/>
+        <LazyCard image={'b.jpg'} defaultImage={'d.jpg'}/>
       </Swipe>
     )
 
@@ -124,9 +125,9 @@ describe('Swipe Component', () => {
         autoPlay={true}
         autoPlayInterval={5000}
       >
-        <Slide image={'a.jpg'} defaultImage={'c.jpg'}/>
-        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
-        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
+        <LazyCard image={'a.jpg'} defaultImage={'c.jpg'}/>
+        <LazyCard image={'b.jpg'} defaultImage={'d.jpg'}/>
+        <LazyCard image={'b.jpg'} defaultImage={'d.jpg'}/>
       </Swipe>
     )
 
@@ -161,9 +162,9 @@ describe('Swipe Component', () => {
         onSwipe={onSwipe}
         onClick={onClick}
       >
-        <Slide image={'a.jpg'} defaultImage={'c.jpg'}/>
-        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
-        <Slide image={'b.jpg'} defaultImage={'d.jpg'}/>
+        <LazyCard image={'a.jpg'} defaultImage={'c.jpg'}/>
+        <LazyCard image={'b.jpg'} defaultImage={'d.jpg'}/>
+        <LazyCard image={'b.jpg'} defaultImage={'d.jpg'}/>
       </Swipe>
     )
 
