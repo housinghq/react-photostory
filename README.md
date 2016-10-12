@@ -4,6 +4,8 @@
 
 [![codecov](https://codecov.io/gh/housinghq/react-photostory/branch/master/graph/badge.svg)](https://codecov.io/gh/housinghq/react-photostory)
 [![Build Status](https://travis-ci.org/housinghq/react-photostory.svg?branch=master)](https://travis-ci.org/housinghq/react-photostory)
+[![npm](https://img.shields.io/npm/v/react-photostory.svg?maxAge=2592000)](https://github.com/housinghq/react-photostory)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/housinghq/react-photostory/master/LICENSE.md)
 
 <p align="center"><img src="demo.gif" width="400"/></p>
 
@@ -39,7 +41,7 @@ import LazyCard from 'react-lazy-card';
 ```
 **CSS**
 ```css
-@import "react-photostory/dist/swipe" // contains CSS of Slide
+@import "react-photostory/dist/swipe"
 ```
 
 ## Options
