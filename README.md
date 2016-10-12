@@ -37,11 +37,11 @@ import { Slide, Swipe } from 'react-photostory';
 ```css
 @import "react-photostory/dist/swipe" // contains CSS of Slide
 
-/**
-* In case you wan't to only use the Slide component
-* as an image lazy loading component, just import
-* the CSS for slide
-**/
+/*
+In case you wan't to only use the Slide component
+as an image lazy loading component, just import
+the CSS for slide
+*/
 @import "react-photostory/dist/slide"
 ```
 
