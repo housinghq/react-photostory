@@ -67,9 +67,9 @@ To manually go to a particular slide you can use `gotoSlide(i)` method
 ```js
 const x = (
 <Swipe className="photostory">
-    <Slide image="a.jpg" defaultImage="default1.jpg">Text 1</Slide>
-    <Slide image="b.jpg" defaultimage="default2.jpg">Text 2</Slide>
-    <Slide image="c.jpg" defaultimage="default3.jpg">Text 2</Slide>
+    <LazyCard image="a.jpg" defaultImage="default1.jpg">Text 1</LazyCard>
+    <LazyCard image="b.jpg" defaultimage="default2.jpg">Text 2</LazyCard>
+    <LazyCard image="c.jpg" defaultimage="default3.jpg">Text 2</LazyCard>
 </Swipe>
 )
 
