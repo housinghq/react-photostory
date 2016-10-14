@@ -10,6 +10,7 @@
   will-change: transform;
   transition: transform .3s ease-out;
   -webkit-transition: transform .3s ease-out;
+  -webkit-transition: -webkit-transform .3s ease-out;
   -moz-transition: transform .3s ease-out;
   -o-transition: transform .3s ease-out;
 }

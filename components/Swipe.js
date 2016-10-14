@@ -177,6 +177,10 @@ export default class Swipe extends Component {
 
     const style = {
       width: width ? `${children.length * width}px` : 'auto',
+      WebkitTransform: `translateX(${-(currentIndex * width) - drag}px)`,
+      MozTransform: `translateX(${-(currentIndex * width) - drag}px)`,
+      msTransform: `translateX(${-(currentIndex * width) - drag}px)`,
+      OTransform: `translateX(${-(currentIndex * width) - drag}px)`,
       transform: `translateX(${-(currentIndex * width) - drag}px)`
     }
 
