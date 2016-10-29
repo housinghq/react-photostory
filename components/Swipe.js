@@ -190,7 +190,7 @@ export default class Swipe extends Component {
         width,
         ref: (ref) => (self[`imageRef${index}`] = ref),
         attributes: {'data-index': index},
-        lazyLoad: renderFirst ? !index === initialIndex : true
+        lazyLoad: renderFirst ? index !== initialIndex : true
       }))
     )
 
