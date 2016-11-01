@@ -161,7 +161,7 @@ export default class Swipe extends Component {
   }
 
   render () {
-    const {className, children, prev, next} = this.props
+    const {className, children, prev, next, initialIndex, renderFirst} = this.props
 
     const {width, drag, currentIndex} = this.state
 
@@ -189,7 +189,8 @@ export default class Swipe extends Component {
       React.cloneElement(child, {
         width,
         ref: (ref) => (self[`imageRef${index}`] = ref),
-        attributes: {...child.props.attributes, 'data-index': index}
+        attributes: {...child.props.attributes, 'data-index': index},
+        lazyLoad: renderFirst ? index !== initialIndex : true
       }))
     )
 
@@ -251,7 +252,9 @@ Swipe.propTypes = {
 
   children: PropTypes.oneOfType([
     PropTypes.array, PropTypes.object
-  ])
+  ]),
+
+  renderFirst: PropTypes.bool
 }
 
 Swipe.defaultProps = {
@@ -266,5 +269,6 @@ Swipe.defaultProps = {
   prev: <button>PREV</button>,
   next: <button>NEXT</button>,
   threshold: 0.5,
-  responsive: false
+  responsive: false,
+  renderFirst: true
 }
