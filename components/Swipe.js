@@ -9,7 +9,8 @@ export default class Swipe extends Component {
       currentIndex: props.initialIndex,
       width: 0,
       scrollLeft: 0,
-      drag: 0
+      drag: 0,
+      data: {}
     }
 
     autoBind(this)
@@ -137,13 +138,14 @@ export default class Swipe extends Component {
   }
 
   onChange (initialIndex) {
-    const child = this.props.children[this.state.currentIndex]
+    const childProps = this.props.children[this.state.currentIndex].props
 
     this.props.onSwipe({
       currentIndex: this.state.currentIndex,
       initialIndex,
-      title: child.props.title,
-      subTitle: child.props.subTitle
+      title: childProps.title,
+      subTitle: childProps.subTitle,
+      data: childProps.data
     })
     this.initLazyLoad()
   }
@@ -162,7 +164,8 @@ export default class Swipe extends Component {
       length: this.props.children.length,
       title: childProps.title,
       subTitle: childProps.subTitle,
-      image: childProps.image
+      image: childProps.image,
+      data: childProps.data
     })
   }
 

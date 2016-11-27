@@ -9,16 +9,17 @@ export default class Story extends Component {
       isOpen: false,
       currentIndex: 0,
       length: 0,
-      pan: null
+      pan: null,
+      data: {}
     }
 
     autoBind(this)
   }
 
-  handleClick ({index, length, title, subTitle, image}) {
+  handleClick ({index, length, title, subTitle, image, data}) {
     const {isOpen} = this.state
     if (!isOpen) {
-      this.setState({isOpen: true, length, currentIndex: index, title, subTitle}, () => {
+      this.setState({isOpen: true, length, currentIndex: index, title, subTitle, data}, () => {
         document.body.style.overflow = this.state.isOpen ? 'hidden' : null
       })
     } else {
@@ -28,8 +29,8 @@ export default class Story extends Component {
     }
   }
 
-  handleSwipe ({currentIndex, title, subTitle}) {
-    this.setState({currentIndex, title, subTitle})
+  handleSwipe ({currentIndex, title, subTitle, data}) {
+    this.setState({currentIndex, title, subTitle, data})
   }
 
   disablePan () {
@@ -44,8 +45,8 @@ export default class Story extends Component {
   }
 
   render () {
-    const {children, height, panHeight, closeBtn} = this.props
-    const {isOpen, currentIndex, length, title, subTitle, pan} = this.state
+    const {children, height, panHeight, closeBtn, footerElem, headerElem} = this.props
+    const {isOpen, currentIndex, length, title, subTitle, pan, data} = this.state
     const mainClass = classNames('react-story', {
       open: isOpen,
       pan: !!pan
@@ -67,26 +68,23 @@ export default class Story extends Component {
       panStyle.display = 'block'
     }
 
+    const args = {currentIndex, title, subTitle, length, image: pan, data}
+
     return (
       <div className={mainClass}>
         {isOpen && <div>
           <div className='rs-close' onClick={this.close}>{closeBtn}</div>
-          <div className='rs-header'>Photo {currentIndex + 1} of {length}</div>
+          <div className='rs-header'>{headerElem(args)}</div>
         </div>}
         <div className='swipe-wrapper' style={style}>
           {children({
             handleClick: this.handleClick,
             handleSwipe: this.handleSwipe
           })}
-          {pan &&
-            <img className='rs-pan-image' src={pan} onClick={this.disablePan} style={panStyle} />
-          }
+          {pan && <img className='rs-pan-image' src={pan} onClick={this.disablePan} style={panStyle} />}
         </div>
 
-        {isOpen && <div className='rs-footer'>
-          <div className='rs-title'>{title}</div>
-          <div className='rs-sub-title'>{subTitle}</div>
-        </div>}
+        {isOpen && footerElem(args)}
       </div>
     )
   }
@@ -96,10 +94,23 @@ Story.propTypes = {
   height: PropTypes.number.isRequired,
   closeBtn: PropTypes.element,
   panHeight: PropTypes.number,
-  children: PropTypes.func
+  children: PropTypes.func,
+  headerElem: PropTypes.func,
+  footerElem: PropTypes.func
 }
 
 Story.defaultProps = {
   panHeight: 500,
-  closeBtn: <span>&#x2715;</span>
+  closeBtn: <span>&#x2715;</span>,
+  headerElem (...args) {
+    return <span>Photo {args[0].currentIndex + 1} of {args[0].length}</span>
+  },
+  footerElem (...args) {
+    return (
+      <div className='rs-footer'>
+        <div className='rs-title'>{args[0].title}</div>
+        <div className='rs-sub-title'>{args[0].subTitle}</div>
+      </div>
+    )
+  }
 }

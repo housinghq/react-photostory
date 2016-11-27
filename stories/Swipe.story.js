@@ -28,12 +28,17 @@ stories
           >
             <LazyCard
               defaultImage={defaultImage}
-              title={'XYZ'}
+              title={'Image 1'}
+              subTitle={'title 1'}
               image='https://is1-2.housingcdn.com/afe3f526/1264f1fbf64cb1d23dfaa3beb33ff0ef/v2/medium.jpg'/>
             <LazyCard
+              title={'Image 2'}
+              subTitle={'title 2'}
               defaultImage={defaultImage}
               image='https://is1-3.housingcdn.com/afe3f526/13b186eece020d2d4ad85cea21cdb991/v4/medium.jpg'/>
             <LazyCard
+              title={'Image 3'}
+              subTitle={'title 3'}
               defaultImage={defaultImage}
               image='https://is1-3.housingcdn.com/afe3f526/7114b67ecce8e089fa750d76372d4636/v3/medium.jpg'/>
           </Swipe>)
