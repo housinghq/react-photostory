@@ -89,10 +89,8 @@ export default class Swipe extends Component {
   }
 
   handleTouchMove (e) {
-    const dx = this.clientX - e.touches[0].clientX
-
     this.setState({
-      drag: dx
+      drag: this.clientX - e.touches[0].clientX
     })
   }
 
@@ -139,9 +137,13 @@ export default class Swipe extends Component {
   }
 
   onChange (initialIndex) {
+    const child = this.props.children[this.state.currentIndex];
+
     this.props.onSwipe({
       currentIndex: this.state.currentIndex,
-      initialIndex
+      initialIndex,
+      title: child.props.title,
+      subTitle: child.props.subTitle
     })
     this.initLazyLoad()
   }
@@ -151,8 +153,16 @@ export default class Swipe extends Component {
   }
 
   handleClick () {
+    setTimeout(this.setWidth, 0)
+
+    const childProps = this.props.children[this.state.currentIndex].props;
+
     this.props.onClick({
-      index: this.state.currentIndex
+      index: this.state.currentIndex,
+      length: this.props.children.length,
+      title: childProps.title,
+      subTitle: childProps.subTitle,
+      image: childProps.image
     })
   }
 

@@ -1,3 +1,4 @@
 import Swipe from './Swipe'
+import Story from './Story'
 
-export default Swipe
+export { Swipe, Story }

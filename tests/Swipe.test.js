@@ -3,7 +3,7 @@ const { describe, it } = global;
 import { shallow, mount } from 'enzyme';
 import { expect } from 'chai'
 import sinon from 'sinon'
-import Swipe from '../components';
+import { Swipe } from '../components';
 import LazyCard from 'react-lazy-card/dist'
 
 function simulateDrag(drag){
