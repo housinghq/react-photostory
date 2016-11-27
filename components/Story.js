@@ -44,7 +44,7 @@ export default class Story extends Component {
   }
 
   render() {
-    const {children, height, panHeight} = this.props;
+    const {children, height, panHeight, closeBtn} = this.props;
     const {isOpen, currentIndex, length, title, subTitle, pan} = this.state;
     const mainClass = classNames('react-story', {
       open: isOpen,
@@ -70,7 +70,7 @@ export default class Story extends Component {
     return (
       <div className={mainClass}>
         {isOpen && <div>
-          <div className="rs-close" onClick={this.close}>&#x2715;</div>
+          <div className="rs-close" onClick={this.close}>{closeBtn}</div>
           <div className="rs-header">Photo {currentIndex + 1} of {length}</div>
         </div>}
         <div className='swipe-wrapper' style={style}>
@@ -99,5 +99,6 @@ Story.propTypes = {
 }
 
 Story.defaultProps = {
-  panHeight: 500
+  panHeight: 500,
+  closeBtn: <span>&#x2715;</span>
 }
