@@ -18,13 +18,7 @@ export default class Story extends Component {
   handleClick({index, length, title, subTitle, image}) {
     const {isOpen} = this.state;
     if (!isOpen) {
-      this.setState({
-        isOpen: true,
-        length,
-        currentIndex: index,
-        title,
-        subTitle
-      }, () => {
+      this.setState({isOpen: true, length, currentIndex: index, title, subTitle}, () => {
         document.body.style.overflow = this.state.isOpen ? 'hidden' : null;
       })
     } else {
@@ -35,11 +29,7 @@ export default class Story extends Component {
   }
 
   handleSwipe({currentIndex, title, subTitle}) {
-    this.setState({
-      currentIndex,
-      title,
-      subTitle
-    })
+    this.setState({currentIndex, title, subTitle})
   }
 
   disablePan() {
@@ -66,7 +56,6 @@ export default class Story extends Component {
     } : {}
 
     const panStyle = {
-      backgroundImage: `url(${pan})`,
       marginTop: -panHeight / 2,
       height: panHeight,
       display: 'none'
