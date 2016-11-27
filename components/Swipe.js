@@ -137,7 +137,7 @@ export default class Swipe extends Component {
   }
 
   onChange (initialIndex) {
-    const child = this.props.children[this.state.currentIndex];
+    const child = this.props.children[this.state.currentIndex]
 
     this.props.onSwipe({
       currentIndex: this.state.currentIndex,
@@ -155,7 +155,7 @@ export default class Swipe extends Component {
   handleClick () {
     setTimeout(this.setWidth, 0)
 
-    const childProps = this.props.children[this.state.currentIndex].props;
+    const childProps = this.props.children[this.state.currentIndex].props
 
     this.props.onClick({
       index: this.state.currentIndex,
