@@ -106,7 +106,8 @@ describe('Swipe Component', () => {
       currentIndex: 1,
       initialIndex: 0,
       title: '',
-      subTitle: undefined
+      subTitle: undefined,
+      data: {}
     }
 
     expect(spy.calledOnce).to.equal(true)
@@ -152,7 +153,7 @@ describe('Swipe Component', () => {
     clock.tick(5000)
     expect(wrapper.state('currentIndex')).to.equal(0)
     expect(onSwipe.calledThrice).to.equal(true)
-    expect(onSwipe.calledWith({currentIndex:0, initialIndex:2, title: 'x1', subTitle: 'y1'})).to.equal(true)
+    expect(onSwipe.calledWith({currentIndex:0, initialIndex:2, title: 'x1', subTitle: 'y1', data: {}})).to.equal(true)
   })
 
   it('should execute onClick on click', () => {
@@ -175,13 +176,13 @@ describe('Swipe Component', () => {
     wrapper.find('.rs-imgs-wrapper').simulate('click')
 
     expect(onClick.calledOnce).to.equal(true)
-    expect(onClick.calledWith({index: 0, length: 3, title: '', subTitle: undefined, image: 'a.jpg'})).to.equal(true)
+    expect(onClick.calledWith({index: 0, length: 3, title: '', subTitle: undefined, image: 'a.jpg', data: {}})).to.equal(true)
 
     component.gotoSlide(2)
     wrapper.find('.rs-imgs-wrapper').simulate('click')
 
     expect(onClick.calledTwice).to.equal(true)
-    expect(onClick.calledWith({index: 2, length: 3, title: '', subTitle: undefined, image: 'c.jpg'})).to.equal(true)
+    expect(onClick.calledWith({index: 2, length: 3, title: '', subTitle: undefined, image: 'c.jpg', data: {}})).to.equal(true)
   })
 
   it('should not change to next slide when drag is less than threshold', () => {
@@ -197,6 +198,6 @@ describe('Swipe Component', () => {
     expect(wrapper.state('drag')).to.equal(0)
     expect(wrapper.state('currentIndex')).to.equal(1)
     expect(onSwipe.calledOnce).to.equal(true)
-    expect(onSwipe.calledWith({currentIndex: 1, initialIndex: 0, title: 'x2', subTitle: 'y2'})).to.equal(true)
+    expect(onSwipe.calledWith({currentIndex: 1, initialIndex: 0, title: 'x2', subTitle: 'y2', data: {}})).to.equal(true)
   })
 })
