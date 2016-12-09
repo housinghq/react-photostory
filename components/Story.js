@@ -22,6 +22,8 @@ export default class Story extends Component {
       this.setState({isOpen: true, length, currentIndex: index, title, subTitle, data}, () => {
         document.body.style.overflow = this.state.isOpen ? 'hidden' : null
       })
+
+      this.props.onOpen({index, title, subTitle, data})
     } else {
       this.setState({
         pan: image
@@ -37,10 +39,13 @@ export default class Story extends Component {
     this.setState({pan: false})
   }
 
-  close () {
+  closeModal () {
     this.setState({
       isOpen: false
+    }, () => {
+      this.props.onClose({index: this.state.currentIndex})
     })
+
     this.disablePan()
   }
 
@@ -73,13 +78,14 @@ export default class Story extends Component {
     return (
       <div className={mainClass}>
         {isOpen && <div>
-          <div className='rs-close' onClick={this.close}>{closeBtn}</div>
+          <div className='rs-close' onClick={this.closeModal}>{closeBtn}</div>
           <div className='rs-header'>{headerElem(args)}</div>
         </div>}
         <div className='swipe-wrapper' style={style}>
           {children({
             handleClick: this.handleClick,
-            handleSwipe: this.handleSwipe
+            handleSwipe: this.handleSwipe,
+            height: isOpen ? height : undefined
           })}
           {pan && <img className='rs-pan-image' src={pan} onClick={this.disablePan} style={panStyle} />}
         </div>
@@ -96,7 +102,9 @@ Story.propTypes = {
   panHeight: PropTypes.number,
   children: PropTypes.func,
   headerElem: PropTypes.func,
-  footerElem: PropTypes.func
+  footerElem: PropTypes.func,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func
 }
 
 Story.defaultProps = {
@@ -112,5 +120,9 @@ Story.defaultProps = {
         <div className='rs-sub-title'>{args[0].subTitle}</div>
       </div>
     )
+  },
+  onClose () {
+  },
+  onOpen () {
   }
 }

@@ -5,26 +5,31 @@
     position: fixed;
     overflow: hidden;
     background-color: #000000;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     bottom: 0;
     right: 0;
+    z-index: 99;
 
     .swipe-wrapper {
       width: 100%;
       top: 50%;
       position: absolute;
     }
+
+    .rs-swipe-gallery {
+      background-color: #000000;
+    }
   }
 
-  .rs-header{
+  .rs-header {
     color: #fff;
     font-size: 20px;
     padding: 15px;
     text-align: center;
   }
 
-  .rs-close{
+  .rs-close {
     position: absolute;
     color: #ffffff;
     font-size: 20px;
@@ -32,7 +37,7 @@
     right: 0;
   }
 
-  .rs-footer{
+  .rs-footer {
     color: #ffffff;
     position: absolute;
     bottom: 0;
@@ -43,9 +48,9 @@
     box-sizing: border-box;
   }
 
-  .rs-pan-image{
+  .rs-pan-image {
     position: absolute;
-    top:50%;
+    top: 50%;
     display: none;
   }
 }

@@ -14,11 +14,12 @@ stories.addDecorator(withKnobs)
 stories
   .add('default', () => (
     <Story
-      height={300}
+      height={500}
     >
-      {({handleClick, handleSwipe}) => {
+      {({handleClick, handleSwipe, height}) => {
         return (
           <Swipe
+            height={height}
             overScan={number('overScan', 0)}
             autoPlay={boolean('autoPlay', false)}
             autoPlayInterval={number('Autoplay Interval', 4000)}

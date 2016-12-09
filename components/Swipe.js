@@ -174,7 +174,7 @@ export default class Swipe extends Component {
   }
 
   render () {
-    const {className, children, prev, next, initialIndex, renderFirst} = this.props
+    const {className, children, prev, next, initialIndex, renderFirst, height} = this.props
 
     const {width, drag, currentIndex} = this.state
 
@@ -212,7 +212,7 @@ export default class Swipe extends Component {
 
     return (
       <div className={mainClass}>
-        <div className='rs-swipe-gallery' ref={(swipe) => (this.swipeRef = swipe)}>
+        <div className='rs-swipe-gallery' ref={(swipe) => (this.swipeRef = swipe)} style={{height}}>
           <div
             className='rs-imgs-wrapper'
             style={style}
@@ -270,7 +270,9 @@ Swipe.propTypes = {
     PropTypes.array, PropTypes.object
   ]),
 
-  renderFirst: PropTypes.bool
+  renderFirst: PropTypes.bool,
+
+  height: PropTypes.number
 }
 
 Swipe.defaultProps = {
@@ -286,5 +288,6 @@ Swipe.defaultProps = {
   next: <button>NEXT</button>,
   threshold: 0.5,
   responsive: false,
-  renderFirst: true
+  renderFirst: true,
+  height: 300
 }
