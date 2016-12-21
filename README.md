@@ -61,6 +61,7 @@ next|&lt;button&gt;NEXT&lt;/button&gt;|React element to replace the NEXT button
 threshold|0.5|Ratio of carousel width one should drag to make successful swipe
 responsive|false|whether or not to listen to window resize event
 renderFirst|true|don't lazy load the initial slide
+height|300|height of the carousel
 
 #### .gotoSlide(i)
 To manually go to a particular slide you can use `gotoSlide(i)` method

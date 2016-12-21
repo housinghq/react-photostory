@@ -16,7 +16,7 @@ setOptions({
 });
 
 function loadStories () {
-  require('../stories/Swipe.story.js');
+  require('../stories/story.js');
 }
 
 configure(loadStories, module);

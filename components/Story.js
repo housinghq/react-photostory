@@ -9,9 +9,10 @@ export default class Story extends Component {
       isOpen: false,
       currentIndex: 0,
       length: 0,
-      pan: null,
-      data: {}
+      panImageUrl: null
     }
+
+    this.data = {}
 
     autoBind(this)
   }
@@ -19,24 +20,26 @@ export default class Story extends Component {
   handleClick ({index, length, title, subTitle, image, data}) {
     const {isOpen} = this.state
     if (!isOpen) {
-      this.setState({isOpen: true, length, currentIndex: index, title, subTitle, data}, () => {
+      this.data = data
+      this.setState({isOpen: true, length, currentIndex: index, title, subTitle}, () => {
         document.body.style.overflow = this.state.isOpen ? 'hidden' : null
       })
 
       this.props.onOpen({index, title, subTitle, data})
     } else {
       this.setState({
-        pan: image
+        panImageUrl: image
       })
     }
   }
 
   handleSwipe ({currentIndex, title, subTitle, data}) {
-    this.setState({currentIndex, title, subTitle, data})
+    this.data = data
+    this.setState({currentIndex, title, subTitle})
   }
 
   disablePan () {
-    this.setState({pan: false})
+    this.setState({panImageUrl: false})
   }
 
   closeModal () {
@@ -51,14 +54,14 @@ export default class Story extends Component {
 
   render () {
     const {children, height, panHeight, closeBtn, footerElem, headerElem} = this.props
-    const {isOpen, currentIndex, length, title, subTitle, pan, data} = this.state
+    const {isOpen, currentIndex, length, title, subTitle, panImageUrl} = this.state
     const mainClass = classNames('react-story', {
       open: isOpen,
-      pan: !!pan
+      panImageUrl: !!panImageUrl
     })
 
     const style = isOpen ? {
-      marginTop: -(pan ? panHeight : height) / 2
+      marginTop: -(panImageUrl ? panHeight : height) / 2
     } : {}
 
     const panStyle = {
@@ -67,13 +70,13 @@ export default class Story extends Component {
       display: 'none'
     }
 
-    if (pan) {
+    if (panImageUrl) {
       style.height = panHeight
       style.overflowX = 'scroll'
       panStyle.display = 'block'
     }
 
-    const args = {currentIndex, title, subTitle, length, image: pan, data}
+    const args = {currentIndex, title, subTitle, length, image: panImageUrl, data: this.data}
 
     return (
       <div className={mainClass}>
@@ -87,17 +90,21 @@ export default class Story extends Component {
             handleSwipe: this.handleSwipe,
             height: isOpen ? height : undefined
           })}
-          {pan && <img className='rs-pan-image' src={pan} onClick={this.disablePan} style={panStyle} />}
+          {panImageUrl && <img className='rs-pan-image' src={panImageUrl} onClick={this.disablePan} style={panStyle} />}
         </div>
 
         {isOpen && footerElem(args)}
       </div>
     )
   }
+
+  componentWillUnmount () {
+    document.body.style.overflow = null
+  }
 }
 
 Story.propTypes = {
-  height: PropTypes.number.isRequired,
+  height: PropTypes.number,
   closeBtn: PropTypes.element,
   panHeight: PropTypes.number,
   children: PropTypes.func,
@@ -108,8 +115,9 @@ Story.propTypes = {
 }
 
 Story.defaultProps = {
+  height: 300,
   panHeight: 500,
-  closeBtn: <span>&#x2715;</span>,
+  closeBtn: <span> &#x2715; </span>,
   headerElem (...args) {
     return <span>Photo {args[0].currentIndex + 1} of {args[0].length}</span>
   },
