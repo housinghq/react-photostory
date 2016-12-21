@@ -9,7 +9,8 @@ export default class Swipe extends Component {
       currentIndex: props.initialIndex,
       width: 0,
       scrollLeft: 0,
-      drag: 0
+      drag: 0,
+      data: {}
     }
 
     autoBind(this)
@@ -89,10 +90,8 @@ export default class Swipe extends Component {
   }
 
   handleTouchMove (e) {
-    const dx = this.clientX - e.touches[0].clientX
-
     this.setState({
-      drag: dx
+      drag: this.clientX - e.touches[0].clientX
     })
   }
 
@@ -139,9 +138,14 @@ export default class Swipe extends Component {
   }
 
   onChange (initialIndex) {
+    const childProps = this.props.children[this.state.currentIndex].props
+
     this.props.onSwipe({
       currentIndex: this.state.currentIndex,
-      initialIndex
+      initialIndex,
+      title: childProps.title,
+      subTitle: childProps.subTitle,
+      data: childProps.data
     })
     this.initLazyLoad()
   }
@@ -151,8 +155,17 @@ export default class Swipe extends Component {
   }
 
   handleClick () {
+    setTimeout(this.setWidth, 0)
+
+    const childProps = this.props.children[this.state.currentIndex].props
+
     this.props.onClick({
-      index: this.state.currentIndex
+      index: this.state.currentIndex,
+      length: this.props.children.length,
+      title: childProps.title,
+      subTitle: childProps.subTitle,
+      image: childProps.image,
+      data: childProps.data
     })
   }
 
@@ -161,7 +174,7 @@ export default class Swipe extends Component {
   }
 
   render () {
-    const {className, children, prev, next, initialIndex, renderFirst} = this.props
+    const {className, children, prev, next, initialIndex, renderFirst, height} = this.props
 
     const {width, drag, currentIndex} = this.state
 
@@ -199,7 +212,7 @@ export default class Swipe extends Component {
 
     return (
       <div className={mainClass}>
-        <div className='rs-swipe-gallery' ref={(swipe) => (this.swipeRef = swipe)}>
+        <div className='rs-swipe-gallery' ref={(swipe) => (this.swipeRef = swipe)} style={{height}}>
           <div
             className='rs-imgs-wrapper'
             style={style}
@@ -257,7 +270,9 @@ Swipe.propTypes = {
     PropTypes.array, PropTypes.object
   ]),
 
-  renderFirst: PropTypes.bool
+  renderFirst: PropTypes.bool,
+
+  height: PropTypes.number
 }
 
 Swipe.defaultProps = {
@@ -273,5 +288,6 @@ Swipe.defaultProps = {
   next: <button>NEXT</button>,
   threshold: 0.5,
   responsive: false,
-  renderFirst: true
+  renderFirst: true,
+  height: 300
 }

@@ -61,6 +61,7 @@ next|&lt;button&gt;NEXT&lt;/button&gt;|React element to replace the NEXT button
 threshold|0.5|Ratio of carousel width one should drag to make successful swipe
 responsive|false|whether or not to listen to window resize event
 renderFirst|true|don't lazy load the initial slide
+height|300|height of the carousel
 
 #### .gotoSlide(i)
 To manually go to a particular slide you can use `gotoSlide(i)` method
@@ -75,6 +76,42 @@ const x = (
 )
 
 x.gotoSlide(2) // will go to the 3rd slide
+```
+
+## <Story/>
+
+```js
+<Story
+  height={300}
+>
+  {({handleClick, handleSwipe}) => {
+    return (
+      <Swipe
+        overScan={number('overScan', 0)}
+        autoPlay={boolean('autoPlay', false)}
+        autoPlayInterval={number('Autoplay Interval', 4000)}
+        onSwipe={handleSwipe}
+        responsive={true}
+        onClick={handleClick}
+      >
+        <LazyCard
+          defaultImage={defaultImage}
+          title={'Image 1'}
+          subTitle={'title 1'}
+          image='https://is1-2.housingcdn.com/afe3f526/1264f1fbf64cb1d23dfaa3beb33ff0ef/v2/medium.jpg'/>
+        <LazyCard
+          title={'Image 2'}
+          subTitle={'title 2'}
+          defaultImage={defaultImage}
+          image='https://is1-3.housingcdn.com/afe3f526/13b186eece020d2d4ad85cea21cdb991/v4/medium.jpg'/>
+        <LazyCard
+          title={'Image 3'}
+          subTitle={'title 3'}
+          defaultImage={defaultImage}
+          image='https://is1-3.housingcdn.com/afe3f526/7114b67ecce8e089fa750d76372d4636/v3/medium.jpg'/>
+      </Swipe>)
+  }}
+</Story>
 ```
 
 ### Development
