@@ -78,7 +78,7 @@ const x = (
 x.gotoSlide(2) // will go to the 3rd slide
 ```
 
-## <Story/>
+## &lt;Story/&gt;
 
 ```js
 <Story
