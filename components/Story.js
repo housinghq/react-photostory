@@ -88,7 +88,8 @@ export default class Story extends Component {
           {children({
             handleClick: this.handleClick,
             handleSwipe: this.handleSwipe,
-            height: isOpen ? height : undefined
+            height: isOpen ? height : undefined,
+            index: currentIndex
           })}
           {panImageUrl && <img className='rs-pan-image' src={panImageUrl} onClick={this.disablePan} style={panStyle} />}
         </div>

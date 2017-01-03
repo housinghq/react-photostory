@@ -16,7 +16,7 @@ stories
     <Story
       height={500}
     >
-      {({handleClick, handleSwipe, height}) => {
+      {({handleClick, handleSwipe, height, index}) => {
         return (
           <Swipe
             height={height}
@@ -26,6 +26,7 @@ stories
             onSwipe={handleSwipe}
             responsive={true}
             onClick={handleClick}
+            initialIndex={index}
           >
             <LazyCard
               defaultImage={defaultImage}
