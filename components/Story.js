@@ -50,6 +50,7 @@ export default class Story extends Component {
     })
 
     this.disablePan()
+    document.body.style.overflow = null
   }
 
   render () {
@@ -97,10 +98,6 @@ export default class Story extends Component {
         {isOpen && footerElem(args)}
       </div>
     )
-  }
-
-  componentWillUnmount () {
-    document.body.style.overflow = null
   }
 }
 
