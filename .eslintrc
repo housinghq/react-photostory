@@ -3,5 +3,8 @@
   "env": {
     "browser": true,
     "node": true
-  }
+  },
+  "rules": {
+    "react/no-unused-prop-types": 0
+    }
 }

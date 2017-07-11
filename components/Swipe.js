@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import autoBind from 'react-auto-bind'
 
@@ -49,27 +50,33 @@ export default class Swipe extends Component {
 
   handleTouchEnd () {
     if (this.hasSingleImage()) return
-    const {drag, currentIndex, width} = this.state
-    const {threshold} = this.props
+    const { drag, currentIndex, width } = this.state
+    const { threshold } = this.props
 
     const initialIndex = currentIndex
 
     if (Math.abs(drag) > threshold * width) {
-      this.setState(() => {
-        if (drag < 0 && currentIndex > 0) {
-          return {
-            // goto previous slide
-            currentIndex: currentIndex - 1
+      this.setState(
+        () => {
+          if (drag < 0 && currentIndex > 0) {
+            return {
+              // goto previous slide
+              currentIndex: currentIndex - 1
+            }
+          } else if (
+            drag > 0 &&
+            currentIndex + 1 < this.props.children.length
+          ) {
+            return {
+              // goto next slide
+              currentIndex: currentIndex + 1
+            }
           }
-        } else if (drag > 0 && ((currentIndex + 1) < this.props.children.length)) {
-          return {
-            // goto next slide
-            currentIndex: currentIndex + 1
-          }
+        },
+        () => {
+          this.onChange(initialIndex)
         }
-      }, () => {
-        this.onChange(initialIndex)
-      })
+      )
     }
 
     this.setState({
@@ -80,12 +87,14 @@ export default class Swipe extends Component {
   }
 
   initLazyLoad () {
-    const {currentIndex} = this.state
-    const {overScan, children} = this.props
+    const { currentIndex } = this.state
+    const { overScan, children } = this.props
     this[`imageRef${currentIndex}`].load()
     if (overScan === 1) {
       if (currentIndex > 0) this[`imageRef${currentIndex - 1}`].load()
-      if (currentIndex + 1 < children.length) this[`imageRef${currentIndex + 1}`].load()
+      if (currentIndex + 1 < children.length) {
+        this[`imageRef${currentIndex + 1}`].load()
+      }
     }
   }
 
@@ -96,14 +105,14 @@ export default class Swipe extends Component {
   }
 
   gotoPrev () {
-    const {currentIndex} = this.state
+    const { currentIndex } = this.state
     if (currentIndex > 0) {
       this.gotoSlide(currentIndex - 1, false)
     }
   }
 
   gotoNext () {
-    const {currentIndex} = this.state
+    const { currentIndex } = this.state
     if (currentIndex + 1 < this.props.children.length) {
       this.gotoSlide(currentIndex + 1, false)
     }
@@ -112,19 +121,22 @@ export default class Swipe extends Component {
   gotoSlide (i, isManual = true) {
     if (isManual) this.pause()
     const initial = this.state.currentIndex
-    this.setState({
-      currentIndex: i
-    }, () => (this.onChange(initial)))
+    this.setState(
+      {
+        currentIndex: i
+      },
+      () => this.onChange(initial)
+    )
   }
 
   autoPlay (props) {
-    const {children, autoPlayInterval} = props
+    const { children, autoPlayInterval } = props
     this.pause()
 
     if (this.hasSingleImage()) return
 
     this.autoPlayId = setInterval(() => {
-      const {currentIndex} = this.state
+      const { currentIndex } = this.state
       if (currentIndex + 1 < children.length) {
         this.gotoNext()
       } else {
@@ -171,12 +183,21 @@ export default class Swipe extends Component {
 
   componentWillUnmount () {
     window.removeEventListener('resize', this.setWidth)
+    if (this.autoPlayId) clearInterval(this.autoPlayId)
   }
 
   render () {
-    const {className, children, prev, next, initialIndex, renderFirst, height} = this.props
+    const {
+      className,
+      children,
+      prev,
+      next,
+      initialIndex,
+      renderFirst,
+      height
+    } = this.props
 
-    const {width, drag, currentIndex} = this.state
+    const { width, drag, currentIndex } = this.state
 
     const mainClass = classNames('react-swipe', className)
 
@@ -198,21 +219,25 @@ export default class Swipe extends Component {
     }
 
     const self = this
-    const children$ = React.Children.map(children, (child, index) => (
+    const children$ = React.Children.map(children, (child, index) =>
       React.cloneElement(child, {
         width,
-        ref: (ref) => (self[`imageRef${index}`] = ref),
+        ref: ref => (self[`imageRef${index}`] = ref),
         attributes: {
           ...child.props.attributes,
           'data-index': index
         },
         lazyLoad: renderFirst ? index !== initialIndex : true
-      }))
+      })
     )
 
     return (
       <div className={mainClass}>
-        <div className='rs-swipe-gallery' ref={(swipe) => (this.swipeRef = swipe)} style={{height}}>
+        <div
+          className='rs-swipe-gallery'
+          ref={swipe => (this.swipeRef = swipe)}
+          style={{ height }}
+        >
           <div
             className='rs-imgs-wrapper'
             style={style}
@@ -223,8 +248,14 @@ export default class Swipe extends Component {
             {children$}
           </div>
         </div>
-        {!this.hasSingleImage() && <div className={prevClass} onClick={this.gotoPrev}>{prev}</div>}
-        {!this.hasSingleImage() && <div className={nextClass} onClick={this.gotoNext}>{next}</div>}
+        {!this.hasSingleImage() &&
+          <div className={prevClass} onClick={this.gotoPrev}>
+            {prev}
+          </div>}
+        {!this.hasSingleImage() &&
+          <div className={nextClass} onClick={this.gotoNext}>
+            {next}
+          </div>}
       </div>
     )
   }
@@ -266,9 +297,7 @@ Swipe.propTypes = {
   // next React element
   next: PropTypes.element,
 
-  children: PropTypes.oneOfType([
-    PropTypes.array, PropTypes.object
-  ]),
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 
   renderFirst: PropTypes.bool,
 
@@ -280,10 +309,8 @@ Swipe.defaultProps = {
   autoPlayInterval: 4000,
   overScan: 1,
   initialIndex: 0,
-  onSwipe () {
-  },
-  onClick () {
-  },
+  onSwipe () {},
+  onClick () {},
   prev: <button>PREV</button>,
   next: <button>NEXT</button>,
   threshold: 0.5,
