@@ -89,10 +89,14 @@ export default class Swipe extends Component {
   initLazyLoad () {
     const { currentIndex } = this.state
     const { overScan, children } = this.props
-    this[`imageRef${currentIndex}`].load()
+    if (this[`imageRef${currentIndex}`]) {
+      this[`imageRef${currentIndex}`].load()
+    }
     if (overScan === 1) {
-      if (currentIndex > 0) this[`imageRef${currentIndex - 1}`].load()
-      if (currentIndex + 1 < children.length) {
+      if (currentIndex > 0 && this[`imageRef${currentIndex - 1}`]) {
+        this[`imageRef${currentIndex - 1}`].load()
+      }
+      if ((currentIndex + 1 < children.length) && this[`imageRef${currentIndex + 1}`]) {
         this[`imageRef${currentIndex + 1}`].load()
       }
     }
