@@ -5669,9 +5669,9 @@ react-auto-bind@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/react-auto-bind/-/react-auto-bind-0.2.0.tgz#c010dcffd64bb544c07b72738ecbbd7003d9830d"
 
-react-auto-bind@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/react-auto-bind/-/react-auto-bind-0.3.0.tgz#530805b8600cd00be2b7f59bc1f60315a535e047"
+react-auto-bind@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-auto-bind/-/react-auto-bind-0.4.0.tgz#ace083f29070830d132ced9f097b9088b5de42e8"
 
 react-color@^2.11.4:
   version "2.13.1"
