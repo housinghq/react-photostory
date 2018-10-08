@@ -32,6 +32,10 @@ export default class Swipe extends Component {
     if (this.props.autoPlay !== nextProps.autoPlay) {
       nextProps.autoPlay ? this.autoPlay(nextProps) : this.pause()
     }
+
+    if (nextProps.initialIndex !== this.state.currentIndex) {
+      this.gotoSlide(nextProps.initialIndex)
+    }
   }
 
   setWidth () {
@@ -253,13 +257,13 @@ export default class Swipe extends Component {
           </div>
         </div>
         {!this.hasSingleImage() &&
-          <div className={prevClass} onClick={this.gotoPrev}>
-            {prev}
-          </div>}
+        <div className={prevClass} onClick={this.gotoPrev}>
+          {prev}
+        </div>}
         {!this.hasSingleImage() &&
-          <div className={nextClass} onClick={this.gotoNext}>
-            {next}
-          </div>}
+        <div className={nextClass} onClick={this.gotoNext}>
+          {next}
+        </div>}
       </div>
     )
   }
