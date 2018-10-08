@@ -18,9 +18,9 @@ export default class Story extends Component {
     autoBind(this)
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.currentIndex!==this.state.currentIndex){
-      this.setState({currentIndex:nextProps.currentIndex})
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.currentIndex !== this.state.currentIndex) {
+      this.setState({currentIndex: nextProps.currentIndex})
     }
   }
 
@@ -156,7 +156,8 @@ Story.propTypes = {
   headerElem: PropTypes.func,
   footerElem: PropTypes.func,
   onOpen: PropTypes.func,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  currentIndex: PropTypes.number
 }
 
 Story.defaultProps = {
